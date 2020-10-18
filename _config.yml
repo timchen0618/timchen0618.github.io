@@ -1,4 +1,4 @@
-theme: jekyll-theme-minimal
+theme: minima
 name: Hung-Ting Chen	
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title
