@@ -1,4 +1,4 @@
-remote-theme: startbootstrap-clean-blog-jekyll
+remote_theme: startbootstrap-clean-blog-jekyll
 name: Hung-Ting Chen	
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title
