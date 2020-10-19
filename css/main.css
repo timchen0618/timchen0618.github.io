@@ -52,6 +52,7 @@ ul.posts li {
     padding: 0px 10px;
 }
 .left {
+	float: left;
     width: 600px;
     margin-right: 20px;
 }
