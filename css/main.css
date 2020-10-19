@@ -27,25 +27,3 @@ ul.posts li { list-style: none; }
 .cv address, .cv .download { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
 .cv address, .cv p { font-size: 1.2em; }
 .cv .download { float: right; font-size: .8em; text-transform: uppercase; }
-
-
-
-.container {
-    background-color: #000;
-    margin: 130px auto;
-    min-height: 320px;
-    width: 940px;
-    overflow: auto;
-    padding: 0px 10px;
-}
-.left {
-	float: left;
-    width: 600px;
-    margin-right: 20px;
-}
-
-.panel {
-    background-color: red;
-}
-
-
