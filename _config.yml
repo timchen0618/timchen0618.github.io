@@ -2,5 +2,3 @@ remote_theme: sStartBootstrap/startbootstrap-clean-blog-jekyll
 name: Hung-Ting Chen	
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title
-
-theme: jekyll-theme-cayman
