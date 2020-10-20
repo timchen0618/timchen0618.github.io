@@ -28,6 +28,14 @@ ul.posts li { list-style: none; }
 .cv address, .cv p { font-size: 1.2em; }
 .cv .download { float: right; font-size: .8em; text-transform: uppercase; }
 
+/* projects */
+.projects { margin: 0px 0px 60px; }
+.projects h1 { font-size: 3em; }
+.projects h2 { font-size: 2em; }
+/*.projects address, .projects .download { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
+.projects address, .projects p { font-size: 1.2em; }
+.projects .download { float: right; font-size: .8em; text-transform: uppercase; }*/
+
 .main{margin: 20px 0px 0px}
 .sidebar {
     background-color: white;
