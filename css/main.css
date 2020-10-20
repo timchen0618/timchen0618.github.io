@@ -63,7 +63,7 @@ ul.posts li { list-style: none; }
 /* Header */
 :root {
   --color1: gray;
-  --color2: purple;
+  --color2: #CAAFCB;
   --color3: orange;
 }
     #header {
