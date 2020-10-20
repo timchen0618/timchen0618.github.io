@@ -80,11 +80,11 @@ ul.posts li { list-style: none; }
     }
 
         #header h1, #header h2, #header h3, #header h4, #header h5, #header h6 {
-            color: #ffffff;
+            color: #00ffff;
         }
 
             #header h1 a, #header h2 a, #header h3 a, #header h4 a, #header h5 a, #header h6 a {
-                color: #ffffff;
+                color: #00ffff;
             }
 
         #header header p {
