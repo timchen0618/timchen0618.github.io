@@ -55,6 +55,10 @@ ul.posts li { list-style: none; }
     background-color: red;
 }
 
+.tim{
+    width: 100px;
+    height: 80px;
+}
 
 /** header **/
 /* Header */
