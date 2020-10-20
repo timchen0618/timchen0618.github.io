@@ -132,6 +132,7 @@ ul.posts li { list-style: none; }
             #header > header p {
                 color: var(--color2);
                 font-style: italic;
+                font-family: 'Optima', 'Copperplate', 'Courier';
                 margin: 1em 0 0 0;
             }
 
