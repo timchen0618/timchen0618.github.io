@@ -64,8 +64,8 @@ ul.posts li { list-style: none; }
     padding: 3px;
     margin: 10px;
     border: 1px solid black;
-    height: 260 px;
-    width: 320 px;
+    block-size: 320px;
+    writing-mode: horizontal-tb;
 }
 
 .project_block_sm {
