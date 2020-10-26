@@ -60,7 +60,8 @@ ul.posts li { list-style: none; }
 }
 
 
-.project_block {
+.project_block:after {
+    display: inline
     padding: 3px;
     margin: 10px;
     border: 1px solid black;
@@ -68,7 +69,8 @@ ul.posts li { list-style: none; }
     writing-mode: horizontal-tb;
 }
 
-.project_block_sm {
+.project_block_sm:after {
+    display: inline
     padding: 3px;
     margin: 10px;
     border: 1px solid black;
