@@ -59,6 +59,31 @@ ul.posts li { list-style: none; }
     max-width: 90%;
 }
 
+
+.projects {
+    padding: 3px;
+    margin: 10px;
+    border: 1px solid black;
+}
+figure {
+    display: table;
+    margin: 0px;
+
+}
+
+figure img {
+    display: block;
+}
+
+figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    text-align: center;
+    border: 1px dotted blue;
+}
+
+
+
 /** header **/
 /* Header */
 :root {
