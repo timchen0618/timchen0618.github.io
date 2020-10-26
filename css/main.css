@@ -64,6 +64,16 @@ ul.posts li { list-style: none; }
     padding: 3px;
     margin: 10px;
     border: 1px solid black;
+    height: 260 px;
+    width: 320 px;
+}
+
+.project_block_sm {
+    padding: 3px;
+    margin: 10px;
+    border: 1px solid black;
+    height: 150 px;
+    width: 320 px;
 }
 figure {
     display: table;
