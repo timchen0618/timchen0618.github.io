@@ -61,21 +61,21 @@ ul.posts li { list-style: none; }
 
 
 .project_block:after {
-    display: inline
+    display: table;
     padding: 3px;
     margin: 10px;
     border: 1px solid black;
-    block-size: 320px;
-    writing-mode: horizontal-tb;
+    width: 320px;
+    /*writing-mode: horizontal-tb;*/
 }
 
 .project_block_sm:after {
-    display: inline
+    display: table;
     padding: 3px;
     margin: 10px;
     border: 1px solid black;
-    block-size: 320px;
-    writing-mode: horizontal-tb;
+    width: 320px;
+    /*writing-mode: horizontal-tb;*/
     height: 150px;
 }
 figure {
