@@ -30,6 +30,12 @@ ul.posts li { list-style: none; }
 
 /* projects */
 .projects { margin: 0px 0px 60px; }
+.projects_raw {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 /*.projects h1 { font-size: 3em; }*/
 /*.projects h2 { font-size: 2em; }*/
 /*.projects address, .projects .download { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
@@ -60,13 +66,19 @@ ul.posts li { list-style: none; }
 }
 
 
-.project_block:after {
+/*.project_block:after {
     display: table;
     padding: 3px;
     margin: 10px;
     border: 1px solid black;
     width: 320px;
     /*writing-mode: horizontal-tb;*/
+}*/
+
+.project_block {
+  float: left;
+  width: 320px;
+  padding: 5px;
 }
 
 .project_block_sm:after {
