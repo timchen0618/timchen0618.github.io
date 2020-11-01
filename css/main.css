@@ -85,7 +85,7 @@ ul.posts li { list-style: none; }
     display: table;
     padding: 3px;
     margin: 10px;
-    border: 1px solid black;
+    border: 2px solid black;
     width: 320px;
     /*writing-mode: horizontal-tb;*/
     height: 150px;
