@@ -78,7 +78,9 @@ ul.posts li { list-style: none; }
 .project_block {
   float: left;
   width: 320px;
-  padding: 5px;
+  padding: 7px;
+  margin: 10px;
+  border: 2px solid black;
 }
 
 .project_block_sm:after {
