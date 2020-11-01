@@ -30,7 +30,7 @@ ul.posts li { list-style: none; }
 
 /* projects */
 .projects { margin: 0px 0px 60px; }
-.projects_raw::after {
+.projects_row::after {
     content: "";
     clear: both;
     display: table;
@@ -42,7 +42,7 @@ ul.posts li { list-style: none; }
 .projects address, .projects p { font-size: 1.2em; }
 .projects .download { float: right; font-size: .8em; text-transform: uppercase; }*/
 
-.main{margin: 0em 0em 0em 15em}
+.main{margin: 0em 0em 0em 13em}
 .sidebar {
     background-color: white;
     margin: 130px auto;
@@ -106,7 +106,8 @@ figcaption {
     display: table-caption;
     caption-side: bottom;
     text-align: center;
-    border: 1px dotted blue;
+    color: black;
+    font-size: 0.2em;
 }
 
 
