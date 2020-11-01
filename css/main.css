@@ -89,12 +89,12 @@ ul.posts li { list-style: none; }
     margin: 10px;
     border: 2px solid black;
     width: 320px;
-    /*writing-mode: horizontal-tb;*/
+    /*writing-mode: horizontal-tb;
     height: 150px;
 }*/
 figure {
     display: table;
-    margin: 0px;
+    margin: 1px;
 
 }
 
@@ -107,7 +107,7 @@ figcaption {
     caption-side: bottom;
     text-align: center;
     color: black;
-    font-size: 0.8em;
+    font-size: 1em;
 }
 
 
