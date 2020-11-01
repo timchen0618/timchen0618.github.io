@@ -77,7 +77,7 @@ ul.posts li { list-style: none; }
 
 .project_block {
   float: left;
-  width: 320px;
+  width: 320;
   padding: 7px;
   margin: 10px;
   border: 2px solid black;
