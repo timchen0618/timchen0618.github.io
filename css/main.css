@@ -109,7 +109,7 @@ figcaption {
     display: table-caption;
     caption-side: bottom;
     text-align: left;
-    color: black;
+    color: gray;
     font-size: 1em;
     padding: 1px;
 }
