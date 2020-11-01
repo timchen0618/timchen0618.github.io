@@ -39,10 +39,10 @@ ul.posts li { list-style: none; }
 .project_block {
   float: left;
   max-width: 320px;
-  height: 225px;
-  padding: 7px;
+  height: 250px;
+  padding: 5px;
   margin: 10px;
-  border: 1px solid black;
+  border: 1px solid gray;
   display: flex;
 }
 /*.projects h1 { font-size: 3em; }*/
@@ -109,7 +109,7 @@ figcaption {
     display: table-caption;
     caption-side: bottom;
     text-align: left;
-    color: gray;
+    color: black;
     font-size: 1em;
     padding: 1px;
 }
