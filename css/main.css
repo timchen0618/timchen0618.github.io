@@ -105,9 +105,10 @@ figure img {
 figcaption {
     display: table-caption;
     caption-side: bottom;
-    text-align: center;
+    text-align: left;
     color: black;
     font-size: 1em;
+    padding: 1px;
 }
 
 
