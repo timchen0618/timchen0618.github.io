@@ -36,6 +36,14 @@ ul.posts li { list-style: none; }
     display: table;
 }
 
+.project_block {
+  float: left;
+  max-width: 320px;
+  padding: 7px;
+  margin: 10px;
+  border: 1px solid black;
+  display: flex;
+}
 /*.projects h1 { font-size: 3em; }*/
 /*.projects h2 { font-size: 2em; }*/
 /*.projects address, .projects .download { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
@@ -75,14 +83,7 @@ ul.posts li { list-style: none; }
     /*writing-mode: horizontal-tb;
 }*/
 
-.project_block {
-  float: left;
-  max-width: 150px;
-  padding: 7px;
-  margin: 10px;
-  border: 5px solid black;
-  display: flex;
-}
+
 
 /*.project_block_sm:after {
     display: table;
