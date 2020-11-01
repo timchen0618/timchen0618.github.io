@@ -45,6 +45,16 @@ ul.posts li { list-style: none; }
   border: 1px solid gray;
   display: flex;
 }
+
+.project_block_sm {
+  float: left;
+  width: 300px;
+  height: 200px;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid gray;
+  display: flex;
+}
 /*.projects h1 { font-size: 3em; }*/
 /*.projects h2 { font-size: 2em; }*/
 /*.projects address, .projects .download { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
