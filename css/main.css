@@ -83,7 +83,7 @@ ul.posts li { list-style: none; }
 
 .project_block_sm:after {
     display: table;
-    padding: 3px;
+    padding: 7px;
     margin: 10px;
     border: 2px solid black;
     width: 320px;
