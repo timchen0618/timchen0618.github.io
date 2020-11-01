@@ -83,7 +83,7 @@ ul.posts li { list-style: none; }
   border: 5px solid black;
 }
 
-.project_block_sm:after {
+/*.project_block_sm:after {
     display: table;
     padding: 7px;
     margin: 10px;
@@ -91,7 +91,7 @@ ul.posts li { list-style: none; }
     width: 320px;
     /*writing-mode: horizontal-tb;*/
     height: 150px;
-}
+}*/
 figure {
     display: table;
     margin: 0px;
