@@ -30,7 +30,7 @@ ul.posts li { list-style: none; }
 
 /* projects */
 .projects { margin: 0px 0px 60px; }
-.projects_raw {
+.projects_raw::after {
     content: "";
     clear: both;
     display: table;
