@@ -80,7 +80,7 @@ ul.posts li { list-style: none; }
   width: 150px;
   padding: 7px;
   margin: 10px;
-  border: 2px solid black;
+  border: 5px solid black;
 }
 
 .project_block_sm:after {
