@@ -38,7 +38,7 @@ ul.posts li { list-style: none; }
 
 .project_block {
   float: left;
-  max-width: 320px;
+  max-width: 300px;
   height: 250px;
   padding: 5px;
   margin: 10px;
