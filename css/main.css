@@ -39,6 +39,7 @@ ul.posts li { list-style: none; }
 .project_block {
   float: left;
   max-width: 320px;
+  height: 225px;
   padding: 7px;
   margin: 10px;
   border: 1px solid black;
