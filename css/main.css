@@ -88,7 +88,7 @@ ul.posts li { list-style: none; }
 .tim{
     max-width: 90%;
 }
-
+.col-12 {margin: 22em}
 
 /*.project_block:after {
     display: table;
@@ -165,7 +165,7 @@ figcaption {
         position: fixed;
         text-align: center;
         top: 0;
-        width: auto;
+        width: 20em;
         left: 0;
     }
 
