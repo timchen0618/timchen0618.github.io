@@ -92,6 +92,7 @@ ul.posts li { list-style: none; }
 .col-12 {margin: 0em 0em 0em 22em}
 .card {width: 300px}
 .card-body {height: 270px}
+.cardwrap {width: 300px; height: 360px; background-color: blue;}
 /*.project_block:after {
     display: table;
     padding: 3px;
