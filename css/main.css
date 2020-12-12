@@ -25,7 +25,7 @@ footer { border-top: 1px solid #d5d5d5; font-size: .8em; }
 ul.posts { margin: 20px auto 40px; font-size: 1.5em; }
 ul.posts li { list-style: none; }
 
-.about { margin: 0px 0px 30px; }
+.about { margin: 20px 0px 30px; }
 /* CV */
 .cv { margin: 0px 0px 30px; }
 /*.cv h1 { font-size: 3em; }*/
