@@ -165,7 +165,7 @@ figcaption {
         position: fixed;
         text-align: center;
         top: 0;
-        width: 20em;
+        width: auto;
         left: 0;
     }
 
