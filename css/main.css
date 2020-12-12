@@ -1,4 +1,4 @@
-body { margin: 22em auto; width: auto; }
+body {}
 
 /*a { text-decoration: none; color: #999; }*/
 a { text-decoration: none; color: black; }
@@ -66,7 +66,7 @@ ul.posts li { list-style: none; }
 .projects address, .projects p { font-size: 1.2em; }
 .projects .download { float: right; font-size: .8em; text-transform: uppercase; }*/
 
-.main{margin: 0em 0em 0em 13em}
+.main{margin: 0em 0em 0em 22em}
 .sidebar {
     background-color: white;
     margin: 130px auto;
