@@ -66,7 +66,7 @@ ul.posts li { list-style: none; }
 .projects address, .projects p { font-size: 1.2em; }
 .projects .download { float: right; font-size: .8em; text-transform: uppercase; }*/
 
-.main{margin: 0em 0em 0em 21em}
+.main{margin: 2em 2em 0em 21em}
 .sidebar {
     background-color: white;
     margin: 130px auto;
