@@ -30,6 +30,7 @@ ul.posts li { list-style: none; }
 /*.cv h2 { font-size: 2em; }*/
 .cv address, .cv .download { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
 .cv address, .cv p { font-size: 1.2em; }
+.cv a {text-decoration: none; color: #999;}
 /*.cv .download { float: left; font-size: 1.5em; text-transform: uppercase; }*/
 
 /* projects */
