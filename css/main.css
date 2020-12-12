@@ -132,6 +132,11 @@ figcaption {
 }
 
 
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: table;
+}
 
 /** header **/
 /* Header */
