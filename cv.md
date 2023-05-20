@@ -1,0 +1,1 @@
+You can download my CV [here](/assets/cv/CV_20221205.pdf).
