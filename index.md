@@ -21,10 +21,10 @@ My research interest broadly lies in natural language processing and machine lea
    **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi  
 
 ### Service
-#### Reviewer / Program Committee
+###### Reviewer / Program Committee
 EMNLP 2022, ACL 2023
 
-#### Teaching
-- Teaching Assistant for *Deep Learning for Human Language Processing* @NTU
-- Teaching Assistant for *Signals and Systems* @NTU
-- Teaching Assistant for *Natural Language Processing* @UT Austin
+###### Teaching
+- Teaching Assistant for *Deep Learning for Human Language Processing* @ NTU
+- Teaching Assistant for *Signals and Systems* @ NTU
+- Teaching Assistant for *Natural Language Processing* @ UT Austin
