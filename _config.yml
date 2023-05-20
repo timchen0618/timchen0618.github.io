@@ -95,8 +95,8 @@ defaults:
 encoding: utf-8 # Make sure the encoding is right
 lang: en-GB # Set the site language
 title: "Hung-Ting Chen" # Site name or title, also used in jekyll-seo-tag
-logo: "/assets/logos/logo.svg" # Site logo, also used in jekyll-seo-tag
-description: "Alembic is a starting point for Jekyll projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately" # Site description and default description, also used in jekyll-seo-tag
+# logo: "/assets/logos/logo.svg" # Site logo, also used in jekyll-seo-tag
+description: "Hung-Ting Chen is a PhD student in computer sciecne at UT Austin." # Site description and default description, also used in jekyll-seo-tag
 url: "https://timchen0618.github.io" # Site url, also used in jekyll-seo-tag
 baseurl: ""
 repo: "https://github.com/timchen0618"
