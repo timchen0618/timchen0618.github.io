@@ -4,7 +4,7 @@ title: Hung-Ting Chen
 #   ## Alembic
 #   A Jekyll boilerplate theme designed to be a starting point for any Jekyll website
 # feature_image: "https://picsum.photos/1300/400?image=989"
-excerpt: "Alembic is a starting point for [Jekyll](https://jekyllrb.com/) projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately. Install it, configure it, tweak it, push it."
+# excerpt: "Alembic is a starting point for [Jekyll](https://jekyllrb.com/) projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately. Install it, configure it, tweak it, push it."
 ---
 
 I am a second-year Master's student in computer science at **the University of Texas at Austin**. I am fortunate to be advised by Prof. [Eunsol Choi](https://www.cs.utexas.edu/~eunsol/). Prior to UT, I received B.S. in Electrical Engineering at National Taiwan University. 
