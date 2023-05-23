@@ -19,6 +19,11 @@ My research interest broadly lies in natural language processing and machine lea
 1. [Rich Knowledge Sources Bring Complex Knowledge Conflicts: Recalibrating Models to Reflect Conflicting Evidence](https://aclanthology.org/2022.emnlp-main.146/)  
    *EMNLP 2022*  
    **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi  
+2. [Continually Improving Extractive QA via Human Feedback](https://arxiv.org/abs/2305.12473)  
+   *arXiv preprint*  
+   Ge Gao<sup>\*</sup>, **Hung-Ting Chen**<sup>\*</sup>, Yoav Artzi, Eunsol Choi
+
+<sup>\*</sup> Equal contribution.
 
 ### Service
 ###### Reviewer / Program Committee
