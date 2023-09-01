@@ -7,7 +7,7 @@ title: Hung-Ting Chen
 # excerpt: "Alembic is a starting point for [Jekyll](https://jekyllrb.com/) projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately. Install it, configure it, tweak it, push it."
 ---
 
-I am a second-year Master's student in computer science at **the University of Texas at Austin**. I am fortunate to be advised by Prof. [Eunsol Choi](https://www.cs.utexas.edu/~eunsol/). Prior to UT, I received B.S. in Electrical Engineering at National Taiwan University. 
+I am a first-year PhD student in computer science at **the University of Texas at Austin**. I am fortunate to be advised by Prof. [Eunsol Choi](https://www.cs.utexas.edu/~eunsol/). I completed my Master’s in Computer Science at UT Austin, and I received B.S. in Electrical Engineering at National Taiwan University. 
 
 My research interest broadly lies in natural language processing and machine learning. More specifically, I am interesting in building system that can understand language and respond to human queries accurately. 
 
