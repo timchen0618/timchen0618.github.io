@@ -20,7 +20,7 @@ My research interest broadly lies in natural language processing and machine lea
    *EMNLP 2022*  
    **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi  
 2. [Continually Improving Extractive QA via Human Feedback](https://arxiv.org/abs/2305.12473)  
-   *arXiv preprint*  
+   *EMNLP 2023*  
    Ge Gao<sup>\*</sup>, **Hung-Ting Chen**<sup>\*</sup>, Yoav Artzi, Eunsol Choi
 
 <sup>\*</sup> Equal contribution.
