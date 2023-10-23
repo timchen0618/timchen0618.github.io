@@ -16,13 +16,15 @@ My research interest broadly lies in natural language processing and machine lea
 {% include button.html text="Github" icon="github" link="https://github.com/timchen0618" color="#0366d6" %} {% include button.html text="Email" icon="email" link="mailto:hungtingchen@utexas.edu" color="#f68140" %} {% include button.html text="Twitter" icon="twitter" link="https://twitter.com/hungting_chen" color="#0d94e7" %} {% include button.html text="Google Scholar" icon="google scholar" link="https://scholar.google.com/citations?user=dApuTpsAAAAJ&hl=en" %}
 
 ### Publications
-1. [Rich Knowledge Sources Bring Complex Knowledge Conflicts: Recalibrating Models to Reflect Conflicting Evidence](https://aclanthology.org/2022.emnlp-main.146/)  
-   *EMNLP 2022*  
-   **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi  
+1. [Understanding Retrieval Augmentation for Long-Form Question Answering](https://arxiv.org/abs/2310.12150)  
+   *Preprint*  
+   **Hung-Ting Chen**, Fangyuan Xu<sup>\*</sup>, Shane A. Arora<sup>\*</sup>, Eunsol Choi
 2. [Continually Improving Extractive QA via Human Feedback](https://arxiv.org/abs/2305.12473)  
    *EMNLP 2023*  
    Ge Gao<sup>\*</sup>, **Hung-Ting Chen**<sup>\*</sup>, Yoav Artzi, Eunsol Choi
-
+3. [Rich Knowledge Sources Bring Complex Knowledge Conflicts: Recalibrating Models to Reflect Conflicting Evidence](https://aclanthology.org/2022.emnlp-main.146/)  
+   *EMNLP 2022*  
+   **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi  
 <sup>\*</sup> Equal contribution.
 
 ### Service
