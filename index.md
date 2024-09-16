@@ -7,13 +7,13 @@ title: Hung-Ting Chen
 # excerpt: "Alembic is a starting point for [Jekyll](https://jekyllrb.com/) projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately. Install it, configure it, tweak it, push it."
 ---
 
-I am a first-year PhD student in computer science at **the University of Texas at Austin**. I am fortunate to be advised by Prof. [Eunsol Choi](https://www.cs.utexas.edu/~eunsol/). I completed my Master’s in Computer Science at UT Austin, and I received B.S. in Electrical Engineering at National Taiwan University. 
+I am a second-year PhD student in computer science at **New York Univeristy**. I am fortunate to be advised by Prof. [Eunsol Choi](https://eunsol.github.io/). I completed my Master’s in Computer Science at UT Austin, and I received B.S. in Electrical Engineering at National Taiwan University. 
 
 My research interest broadly lies in natural language processing and machine learning. More specifically, I am interesting in building system that can understand language and respond to human queries accurately. 
 
 
 
-{% include button.html text="Github" icon="github" link="https://github.com/timchen0618" color="#0366d6" %} {% include button.html text="Email" icon="email" link="mailto:hungtingchen@utexas.edu" color="#f68140" %} {% include button.html text="Twitter" icon="twitter" link="https://twitter.com/hungting_chen" color="#0d94e7" %} {% include button.html text="Google Scholar" icon="google scholar" link="https://scholar.google.com/citations?user=dApuTpsAAAAJ&hl=en" %}
+{% include button.html text="Github" icon="github" link="https://github.com/timchen0618" color="#0366d6" %} {% include button.html text="Email" icon="email" link="mailto:hung-ting.chen@nyu.edu" color="#f68140" %} {% include button.html text="Twitter" icon="twitter" link="https://twitter.com/hungting_chen" color="#0d94e7" %} {% include button.html text="Google Scholar" icon="google scholar" link="https://scholar.google.com/citations?user=dApuTpsAAAAJ&hl=en" %}
 
 ### Publications
 1. [Understanding Retrieval Augmentation for Long-Form Question Answering](https://arxiv.org/abs/2310.12150)  
@@ -29,7 +29,7 @@ My research interest broadly lies in natural language processing and machine lea
 
 ### Service
 ###### Reviewer / Program Committee
-EMNLP 2022, AKBC 2022, ACL 2023, EMNLP 2023
+EMNLP 2022, AKBC 2022, ACL 2023, EMNLP 2023, KnowledgeLM @ ACL2024, ARR Feb, ARR Aug
 
 ###### Teaching
 - Teaching Assistant for *Deep Learning for Human Language Processing*, Spring 2020 @ NTU
