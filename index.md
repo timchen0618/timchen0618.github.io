@@ -17,7 +17,7 @@ My research interest broadly lies in natural language processing and machine lea
 
 ### Publications
 1. [Understanding Retrieval Augmentation for Long-Form Question Answering](https://arxiv.org/abs/2310.12150)  
-   *Preprint*  
+   *COLM 2024*  
    **Hung-Ting Chen**, Fangyuan Xu<sup>\*</sup>, Shane A. Arora<sup>\*</sup>, Eunsol Choi
 2. [Continually Improving Extractive QA via Human Feedback](https://arxiv.org/abs/2305.12473)  
    *EMNLP 2023*  
