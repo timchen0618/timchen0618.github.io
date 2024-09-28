@@ -24,7 +24,15 @@ My research interest broadly lies in natural language processing and machine lea
    Ge Gao<sup>\*</sup>, **Hung-Ting Chen**<sup>\*</sup>, Yoav Artzi, Eunsol Choi
 3. [Rich Knowledge Sources Bring Complex Knowledge Conflicts: Recalibrating Models to Reflect Conflicting Evidence](https://aclanthology.org/2022.emnlp-main.146/)  
    *EMNLP 2022*  
-   **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi  
+   **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi 
+
+### Preprints
+1. [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110)
+   *Preprint*
+   **Hung-Ting Chen**, Eunsol Choi
+2. [CaLMQA: Exploring culturally specific long-form question answering across 23 languages](https://arxiv.org/abs/2406.17761)
+   *Preprint*
+   Shane Arora, Marzena Karpinska, **Hung-Ting Chen**, Ipsita Bhattacharjee, Mohit Iyyer, Eunsol Choi
 <sup>\*</sup> Equal contribution.
 
 ### Service
