@@ -32,7 +32,7 @@ My research interest broadly lies in natural language processing and machine lea
    **Hung-Ting Chen**, Eunsol Choi  
 2. [CaLMQA: Exploring culturally specific long-form question answering across 23 languages](https://arxiv.org/abs/2406.17761)  
    *Preprint*  
-   Shane Arora, Marzena Karpinska, **Hung-Ting Chen**, Ipsita Bhattacharjee, Mohit Iyyer, Eunsol Choi  
+   Shane Arora<sup>\*</sup>, Marzena Karpinska<sup>\*</sup>, **Hung-Ting Chen**, Ipsita Bhattacharjee, Mohit Iyyer, Eunsol Choi  
 <sup>\*</sup> Equal contribution.
 
 ### Service
