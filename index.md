@@ -29,7 +29,8 @@ My research interest broadly lies in natural language processing and machine lea
 ### Preprints
 1. [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110)  
    *Preprint*  
-   **Hung-Ting Chen**, Eunsol Choi  
+   **Hung-Ting Chen**, Eunsol Choi   
+   [[website]](https://timchen0618.github.io/berds/)   
 2. [CaLMQA: Exploring culturally specific long-form question answering across 23 languages](https://arxiv.org/abs/2406.17761)  
    *Preprint*  
    Shane Arora<sup>\*</sup>, Marzena Karpinska<sup>\*</sup>, **Hung-Ting Chen**, Ipsita Bhattacharjee, Mohit Iyyer, Eunsol Choi  
