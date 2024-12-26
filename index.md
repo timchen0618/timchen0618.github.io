@@ -37,7 +37,7 @@ My research interest broadly lies in natural language processing and machine lea
 
 ### Service
 ###### Reviewer / Program Committee
-EMNLP 2022, AKBC 2022, ACL 2023, EMNLP 2023, KnowledgeLM @ ACL2024, ARR Feb, ARR Aug
+EMNLP (2022, 2023), ARR (Feb 2024, Aug 2024, Oct 2024), ACL 2023, AKBC 2022, KnowledgeLM @ ACL2024
 
 ###### Teaching
 - Teaching Assistant for *Deep Learning for Human Language Processing*, Spring 2020 @ NTU
