@@ -9,7 +9,7 @@ title: Hung-Ting Chen
 
 I am a second-year PhD student in computer science at **New York Univeristy**. I am fortunate to be advised by Prof. [Eunsol Choi](https://eunsol.github.io/). I completed my Master’s in Computer Science at UT Austin, and I received B.S. in Electrical Engineering at National Taiwan University. 
 
-My research interest broadly lies in natural language processing and machine learning. More specifically, I am interested in building system that can understand language and respond to human queries accurately. 
+My research interest broadly lies in natural language processing and machine learning. More specifically, I am interested in building systems that can understand language and respond to human queries accurately. 
 
 
 
