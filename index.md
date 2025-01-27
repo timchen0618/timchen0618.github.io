@@ -16,22 +16,22 @@ My research interest broadly lies in natural language processing and machine lea
 {% include button.html text="Github" icon="github" link="https://github.com/timchen0618" color="#0366d6" %} {% include button.html text="Email" icon="email" link="mailto:hung-ting.chen@nyu.edu" color="#f68140" %} {% include button.html text="Twitter" icon="twitter" link="https://twitter.com/hungting_chen" color="#0d94e7" %} {% include button.html text="Google Scholar" icon="google scholar" link="https://scholar.google.com/citations?user=dApuTpsAAAAJ&hl=en" %}
 
 ### Publications
-1. [Understanding Retrieval Augmentation for Long-Form Question Answering](https://arxiv.org/abs/2310.12150)  
+1. [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110)  
+   *NAACL2025*  
+   **Hung-Ting Chen**, Eunsol Choi   
+   [[website]](https://timchen0618.github.io/berds/)   
+2. [Understanding Retrieval Augmentation for Long-Form Question Answering](https://arxiv.org/abs/2310.12150)  
    *COLM 2024*  
    **Hung-Ting Chen**, Fangyuan Xu<sup>\*</sup>, Shane A. Arora<sup>\*</sup>, Eunsol Choi
-2. [Continually Improving Extractive QA via Human Feedback](https://arxiv.org/abs/2305.12473)  
+3. [Continually Improving Extractive QA via Human Feedback](https://arxiv.org/abs/2305.12473)  
    *EMNLP 2023*  
    Ge Gao<sup>\*</sup>, **Hung-Ting Chen**<sup>\*</sup>, Yoav Artzi, Eunsol Choi
-3. [Rich Knowledge Sources Bring Complex Knowledge Conflicts: Recalibrating Models to Reflect Conflicting Evidence](https://aclanthology.org/2022.emnlp-main.146/)  
+4. [Rich Knowledge Sources Bring Complex Knowledge Conflicts: Recalibrating Models to Reflect Conflicting Evidence](https://aclanthology.org/2022.emnlp-main.146/)  
    *EMNLP 2022*  
    **Hung-Ting Chen**, Michael J.Q. Zhang, Eunsol Choi 
 
 ### Preprints
-1. [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110)  
-   *Preprint*  
-   **Hung-Ting Chen**, Eunsol Choi   
-   [[website]](https://timchen0618.github.io/berds/)   
-2. [CaLMQA: Exploring culturally specific long-form question answering across 23 languages](https://arxiv.org/abs/2406.17761)  
+1. [CaLMQA: Exploring culturally specific long-form question answering across 23 languages](https://arxiv.org/abs/2406.17761)  
    *Preprint*  
    Shane Arora<sup>\*</sup>, Marzena Karpinska<sup>\*</sup>, **Hung-Ting Chen**, Ipsita Bhattacharjee, Mohit Iyyer, Eunsol Choi  
 <sup>\*</sup> Equal contribution.
