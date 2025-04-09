@@ -72,9 +72,27 @@
             border-radius: 4px;
             border-left: 4px solid #3498db;
         }
-        .similarity-score {
-            color: #27ae60;
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .document-rank {
+            color: #2c3e50;
             font-weight: bold;
+        }
+        .gold-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            color: white;
+        }
+        .gold-badge.true {
+            background-color: #f1c40f;
+        }
+        .gold-badge.false {
+            background-color: #95a5a6;
         }
         .document-text {
             margin-top: 5px;
@@ -138,13 +156,13 @@
                 const docsList = document.createElement('div');
                 docsList.className = 'documents-list';
 
-                cluster.topDocs.forEach((doc, rank) => {
+                cluster.topDocs.forEach((doc, idx) => {
                     const docItem = document.createElement('div');
                     docItem.className = 'document-item';
                     docItem.innerHTML = `
-                        <div>
-                            <strong>${rank + 1}.</strong> 
-                            <span class="similarity-score">Similarity: ${doc.similarity.toFixed(4)}</span>
+                        <div class="document-header">
+                            <span class="document-rank">Rank: ${doc.rank + 1}</span>
+                            <span class="gold-badge ${doc.is_gold}">${doc.is_gold ? 'Gold Answer' : 'Not Gold'}</span>
                         </div>
                         <div class="document-text">${doc.text}</div>
                     `;
@@ -176,7 +194,7 @@
             .catch(error => {
                 console.error('Error loading the data:', error);
                 document.getElementById('results-container').innerHTML = 
-                    '<p style="color: red;">Error loading the clustering results. Please make sure the data file exists.</p>';
+                    '<p style="color: red;">Error loading the clustering results. Please make sure cluster_results_qampari.json exists.</p>';
             });
     </script>
 </body>
