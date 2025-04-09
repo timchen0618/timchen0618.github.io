@@ -173,7 +173,7 @@
                     docItem.className = `document-item ${doc.is_gold ? 'gold' : ''}`;
                     docItem.innerHTML = `
                         <div class="document-header">
-                            <span class="document-rank">Rank: ${doc.rank + 1}</span>
+                            <span class="document-rank">Rank: ${doc.rank !== undefined ? doc.rank + 1 : idx + 1}</span>
                             <span class="gold-status ${doc.is_gold}">
                                 ${doc.is_gold ? 
                                     '<i class="fas fa-star gold-icon"></i> Gold Answer' : 
