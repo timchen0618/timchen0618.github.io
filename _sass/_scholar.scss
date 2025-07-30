@@ -1,0 +1,102 @@
+/* Bibliography styling for jekyll-scholar */
+.pub-row {
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #eee;
+}
+
+.pub-row:last-child {
+  border-bottom: none;
+}
+
+.pub-row .title {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+.pub-row .author {
+  margin-bottom: 0.3em;
+  color: #666;
+}
+
+.pub-row .author strong {
+  color: #333;
+}
+
+.pub-row .periodical {
+  font-style: italic;
+  margin-bottom: 0.5em;
+  color: #666;
+}
+
+.pub-row .links {
+  margin-top: 0.5em;
+}
+
+.pub-row .links a {
+  display: inline-block;
+  margin-right: 0.5em;
+  margin-bottom: 0.3em;
+  padding: 0.2em 0.5em;
+  background-color: #f8f9fa;
+  color: #495057;
+  text-decoration: none;
+  border-radius: 3px;
+  font-size: 0.85em;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+.pub-row .links a:hover {
+  background-color: #e9ecef;
+  color: #343a40;
+  text-decoration: none;
+}
+
+.pub-row .abstract.hidden {
+  display: none;
+}
+
+.pub-row .abstract {
+  margin-top: 0.8em;
+  padding: 1em;
+  background-color: #f8f9fa;
+  border-left: 3px solid #007bff;
+  border-radius: 0 3px 3px 0;
+}
+
+.pub-row .abstract p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.abbr .badge {
+  background-color: #007bff;
+  color: white;
+  padding: 0.3em 0.6em;
+  border-radius: 3px;
+  font-size: 0.8em;
+  text-decoration: none;
+}
+
+.abbr .badge:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pub-row .col-sm-3,
+  .pub-row .col-sm-9 {
+    width: 100%;
+    float: none;
+  }
+  
+  .abbr {
+    margin-bottom: 0.5em;
+  }
+} 

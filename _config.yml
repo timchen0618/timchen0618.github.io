@@ -309,6 +309,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
   - jemoji
+  - jekyll-scholar
 
 # Mimic GitHub Pages with --safe
 whitelist:
@@ -318,6 +319,25 @@ whitelist:
   - jekyll-sitemap
   - jekyll-redirect-from
   - jemoji
+  - jekyll-scholar
+
+# Jekyll Scholar Configuration
+scholar:
+  style: apa
+  locale: en
+  source: ./_bibliography
+  bibliography: references.bib
+  bibliography_template: bib
+  replace_strings: true
+  join_strings: true
+  details_dir: bibliography
+  details_layout: bibtex.html
+  details_link: Details
+  query: "@*"
+  group_by: year
+  group_order: descending
+  sort_by: year
+  order: descending
 
 
 # Archives
