@@ -2,17 +2,15 @@
 ---
 
 <div class="pub-row">
-  <div class="col-sm-3 abbr">
-    {% if entry.abbr %}
-      {% if site.data.venues[entry.abbr] %}
-        <abbr class="badge"><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
-      {% else %}
-        <abbr class="badge">{{entry.abbr}}</abbr>
-      {% endif %}
+  <div class="pub-badge">
+    {% if entry.type == "article" %}
+      <span class="badge">Preprint</span>
+    {% else %}
+      <span class="badge">Paper</span>
     {% endif %}
   </div>
 
-  <div class="col-sm-9">
+  <div class="pub-content">
     <div class="title">{{entry.title}}</div>
     <div class="author">
       {% assign author_array = entry.author | split: " and " %}
@@ -23,7 +21,7 @@
         {% else %}
           {{author_name}}
         {% endif %}
-        {% unless forloop.last %},{% endunless %}
+        {% unless forloop.last %}, {% endunless %}
       {% endfor %}
     </div>
 
@@ -39,26 +37,20 @@
     </div>
 
     <div class="links">
-      {% if entry.abstract %}
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
-      {% endif %}
-      {% if entry.arxiv %}
-        <a href="http://arxiv.org/abs/{{ entry.arxiv }}" class="btn btn-sm z-depth-0" role="button">arXiv</a>
-      {% endif %}
       {% if entry.url %}
-        <a href="{{ entry.url }}" class="btn btn-sm z-depth-0" role="button">Paper</a>
-      {% endif %}
-      {% if entry.website %}
-        <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
+        <a href="{{ entry.url }}">PDF</a>
       {% endif %}
       {% if entry.code %}
-        <a href="{{ entry.code }}" class="btn btn-sm z-depth-0" role="button">Code</a>
+        <a href="{{ entry.code }}">CODE</a>
       {% endif %}
-      {% if entry.poster %}
-        <a href="{{ entry.poster }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
+      {% if entry.dataset %}
+        <a href="{{ entry.dataset }}">DATASET</a>
       {% endif %}
-      {% if entry.slides %}
-        <a href="{{ entry.slides }}" class="btn btn-sm z-depth-0" role="button">Slides</a>
+      {% if entry.website %}
+        <a href="{{ entry.website }}">WEBSITE</a>
+      {% endif %}
+      {% if entry.abstract %}
+        <a class="abstract-toggle" role="button">ABSTRACT</a>
       {% endif %}
     </div>
 

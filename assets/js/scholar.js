@@ -1,6 +1,6 @@
 // Toggle abstract visibility
 document.addEventListener('DOMContentLoaded', function() {
-  const abstractButtons = document.querySelectorAll('a.abstract');
+  const abstractButtons = document.querySelectorAll('a.abstract-toggle');
   
   abstractButtons.forEach(function(button) {
     button.addEventListener('click', function(e) {
@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
       if (abstractDiv) {
         if (abstractDiv.style.display === 'none' || abstractDiv.style.display === '') {
           abstractDiv.style.display = 'block';
-          this.textContent = 'Hide Abstract';
+          this.textContent = 'HIDE ABSTRACT';
         } else {
           abstractDiv.style.display = 'none';
-          this.textContent = 'Abstract';
+          this.textContent = 'ABSTRACT';
         }
       }
     });
