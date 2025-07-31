@@ -16,10 +16,10 @@ author_profile: true
     <div class="pub-badge">
       {% if post.category == "manuscripts" %}
         <span class="badge">Preprint</span>
-      {% elsif post.category == "conferences" %}
-        <span class="badge">Paper</span>
       {% else %}
-        <span class="badge">Paper</span>
+        {% assign venue_parts = post.venue | split: ' ' %}
+        {% assign venue_short = venue_parts[0] %}
+        <span class="badge">{{ venue_short }}</span>
       {% endif %}
     </div>
 
@@ -52,7 +52,7 @@ author_profile: true
           <a href="{{ post.websiteurl }}">WEBSITE</a>
         {% endif %}
         {% if post.excerpt %}
-          <a class="abstract-toggle" role="button">ABSTRACT</a>
+          <a class="abstract-toggle" role="button" href="#">ABSTRACT</a>
         {% endif %}
       </div>
 

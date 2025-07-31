@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       
       const pubRow = this.closest('.pub-row');
-      const abstractDiv = pubRow.querySelector('.abstract.hidden');
+      const abstractDiv = pubRow.querySelector('.abstract');
       
       if (abstractDiv) {
-        if (abstractDiv.style.display === 'none' || abstractDiv.style.display === '') {
-          abstractDiv.style.display = 'block';
+        if (abstractDiv.classList.contains('hidden')) {
+          abstractDiv.classList.remove('hidden');
           this.textContent = 'HIDE ABSTRACT';
         } else {
-          abstractDiv.style.display = 'none';
+          abstractDiv.classList.add('hidden');
           this.textContent = 'ABSTRACT';
         }
       }
