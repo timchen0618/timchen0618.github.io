@@ -16,6 +16,8 @@ author_profile: true
     <div class="pub-badge">
       {% if post.category == "manuscripts" %}
         <span class="badge">Preprint</span>
+      {% elsif post.category == "conferences" %}
+        <span class="badge">Paper</span>
       {% else %}
         <span class="badge">Paper</span>
       {% endif %}
