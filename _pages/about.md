@@ -12,26 +12,20 @@ I am a second-year PhD student in computer science at **New York University**. I
 My research interest broadly lies in natural language processing and machine learning. More specifically, I am interested in building systems that can understand language and respond to human queries accurately.
 
 ## Recent News
-- **December 2024**: Our paper on [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110) was accepted to NAACL 2025!
+- **Jan 2025**: Our paper on [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110) was accepted to NAACL 2025!
 
 ## Research Interests
 - Natural Language Processing
 - Question Answering Systems  
 - Retrieval-Augmented Generation
-- Human-AI Interaction
 - Information Retrieval
 
-## Education
-- **PhD in Computer Science**, New York University (2023 - Present)
-  - Advisor: Prof. Eunsol Choi
-- **MS in Computer Science**, University of Texas at Austin (2021 - 2023)
-- **BS in Electrical Engineering**, National Taiwan University (2017 - 2021)
 
 ## Service
 
 ### Reviewer / Program Committee
 - EMNLP (2022, 2023)
-- ARR (Feb 2024, Aug 2024, Oct 2024)
+- ARR (Feb 2024, Aug 2024, Oct 2024, Feb 2025)
 - ACL 2023
 - AKBC 2022
 - KnowledgeLM @ ACL2024

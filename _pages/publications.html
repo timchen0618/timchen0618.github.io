@@ -11,25 +11,23 @@ author_profile: true
 
 {% include base_path %}
 
+<h2>Conference Papers</h2>
 {% for post in site.publications reversed %}
+  {% if post.category == "conferences" %}
   <div class="pub-row">
     <div class="pub-badge">
-      {% if post.category == "manuscripts" %}
-        <span class="badge">Preprint</span>
-      {% else %}
-        {% assign venue_parts = post.venue | split: ' ' %}
-        {% assign venue_short = venue_parts[0] %}
-        <span class="badge">{{ venue_short }}</span>
-      {% endif %}
+      {% assign venue_parts = post.venue | split: ' ' %}
+      {% assign venue_short = venue_parts[0] %}
+      <span class="badge">{{ venue_short }}</span>
     </div>
 
     <div class="pub-content">
       <div class="title">{{ post.title }}</div>
       <div class="author">
         {% if post.citation %}
-          {% assign citation_parts = post.citation | split: '.' %}
+          {% assign citation_parts = post.citation | split: '(' %}
           {% assign author_part = citation_parts[0] %}
-          {% assign author_clean = author_part | replace: '&quot;', '' | strip %}
+          {% assign author_clean = author_part | replace: '&quot;', '' | replace: '.', '' | strip %}
           {{ author_clean }}
         {% endif %}
       </div>
@@ -63,6 +61,58 @@ author_profile: true
       {% endif %}
     </div>
   </div>
+  {% endif %}
+{% endfor %}
+
+<h2>Preprints</h2>
+{% for post in site.publications reversed %}
+  {% if post.category == "manuscripts" %}
+  <div class="pub-row">
+    <div class="pub-badge">
+      <span class="badge">Preprint</span>
+    </div>
+
+    <div class="pub-content">
+      <div class="title">{{ post.title }}</div>
+      <div class="author">
+        {% if post.citation %}
+          {% assign citation_parts = post.citation | split: '(' %}
+          {% assign author_part = citation_parts[0] %}
+          {% assign author_clean = author_part | replace: '&quot;', '' | replace: '.', '' | strip %}
+          {{ author_clean }}
+        {% endif %}
+      </div>
+
+      <div class="periodical">
+        <em>{{ post.venue }}</em>{% if post.date %}, {{ post.date | date: "%Y" }}{% endif %}
+      </div>
+
+      <div class="links">
+        {% if post.paperurl %}
+          <a href="{{ post.paperurl }}">PDF</a>
+        {% endif %}
+        {% if post.codeurl %}
+          <a href="{{ post.codeurl }}">CODE</a>
+        {% endif %}
+        {% if post.dataseturl %}
+          <a href="{{ post.dataseturl }}">DATASET</a>
+        {% endif %}
+        {% if post.websiteurl %}
+          <a href="{{ post.websiteurl }}">WEBSITE</a>
+        {% endif %}
+        {% if post.excerpt %}
+          <a class="abstract-toggle" role="button" href="#">ABSTRACT</a>
+        {% endif %}
+      </div>
+
+      {% if post.excerpt %}
+        <div class="abstract hidden">
+          <p>{{ post.excerpt }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
 {% endfor %}
 
 

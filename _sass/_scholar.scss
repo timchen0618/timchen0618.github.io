@@ -41,6 +41,8 @@
 .pub-content {
   flex: 1;
   min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .pub-content .title {
@@ -55,6 +57,8 @@
   margin-bottom: 0.2em;
   color: #666;
   line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .pub-content .author strong {
@@ -120,6 +124,21 @@
 /* Add spacing after Google Scholar text */
 .wordwrap {
   margin-bottom: 2em;
+}
+
+/* Section headers styling */
+h2 {
+  margin-top: 2em;
+  margin-bottom: 1.5em;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #2196F3;
+  padding-bottom: 0.3em;
+}
+
+h2:first-of-type {
+  margin-top: 0;
 }
 
 /* Responsive adjustments */
