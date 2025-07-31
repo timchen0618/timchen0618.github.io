@@ -3,7 +3,7 @@ title: "Rich Knowledge Sources Bring Complex Knowledge Conflicts: Recalibrating 
 collection: publications
 category: conferences
 permalink: /publication/2022-01-01-knowledge-conflicts
-excerpt: 'We study knowledge conflicts in models with rich knowledge sources and propose methods for handling conflicting evidence.'
+excerpt: 'This paper addresses the challenge of knowledge conflicts that arise when models have access to rich, diverse knowledge sources. We propose methods for recalibrating models to appropriately handle conflicting evidence and reflect uncertainty in their predictions.'
 date: 2022-01-01
 venue: 'EMNLP 2022'
 paperurl: 'https://aclanthology.org/2022.emnlp-main.146/'

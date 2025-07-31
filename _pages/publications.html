@@ -11,7 +11,57 @@ author_profile: true
 
 {% include base_path %}
 
-{% bibliography %}
+{% for post in site.publications reversed %}
+  <div class="pub-row">
+    <div class="pub-badge">
+      {% if post.category == "manuscripts" %}
+        <span class="badge">Preprint</span>
+      {% else %}
+        <span class="badge">Paper</span>
+      {% endif %}
+    </div>
+
+    <div class="pub-content">
+      <div class="title">{{ post.title }}</div>
+      <div class="author">
+        {% if post.citation %}
+          {% assign citation_parts = post.citation | split: '.' %}
+          {% assign author_part = citation_parts[0] %}
+          {% assign author_clean = author_part | replace: '&quot;', '' | strip %}
+          {{ author_clean }}
+        {% endif %}
+      </div>
+
+      <div class="periodical">
+        <em>{{ post.venue }}</em>{% if post.date %}, {{ post.date | date: "%Y" }}{% endif %}
+      </div>
+
+      <div class="links">
+        {% if post.paperurl %}
+          <a href="{{ post.paperurl }}">PDF</a>
+        {% endif %}
+        {% if post.codeurl %}
+          <a href="{{ post.codeurl }}">CODE</a>
+        {% endif %}
+        {% if post.dataseturl %}
+          <a href="{{ post.dataseturl }}">DATASET</a>
+        {% endif %}
+        {% if post.websiteurl %}
+          <a href="{{ post.websiteurl }}">WEBSITE</a>
+        {% endif %}
+        {% if post.excerpt %}
+          <a class="abstract-toggle" role="button">ABSTRACT</a>
+        {% endif %}
+      </div>
+
+      {% if post.excerpt %}
+        <div class="abstract hidden">
+          <p>{{ post.excerpt }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
 
 
 
