@@ -27,4 +27,18 @@ My research interest broadly lies in natural language processing and machine lea
 - **MS in Computer Science**, University of Texas at Austin (2021 - 2023)
 - **BS in Electrical Engineering**, National Taiwan University (2017 - 2021)
 
+## Service
+
+### Reviewer / Program Committee
+- EMNLP (2022, 2023)
+- ARR (Feb 2024, Aug 2024, Oct 2024)
+- ACL 2023
+- AKBC 2022
+- KnowledgeLM @ ACL2024
+
+### Teaching
+- Teaching Assistant for *Natural Language Processing*, Spring 2022 @ UT Austin
+- Teaching Assistant for *Deep Learning for Human Language Processing*, Spring 2020 @ NTU
+- Teaching Assistant for *Signals and Systems*, Spring 2019 @ NTU
+
 You can find my publications on [Google Scholar](https://scholar.google.com/citations?user=dApuTpsAAAAJ&hl=en) or browse them on this website. I am always happy to discuss research and potential collaborations.
