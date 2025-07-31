@@ -1,10 +1,10 @@
 /* Bibliography styling to match the screenshot */
 .pub-row {
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
   padding-bottom: 0;
   border-bottom: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: flex-start;
 }
 
@@ -117,11 +117,17 @@
   line-height: 1.6;
 }
 
+/* Add spacing after Google Scholar text */
+.wordwrap {
+  margin-bottom: 2em;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .pub-row {
     flex-direction: column;
     gap: 0.5rem;
+    margin-bottom: 1.5em;
   }
   
   .pub-badge {
