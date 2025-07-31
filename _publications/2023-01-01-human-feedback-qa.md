@@ -5,9 +5,9 @@ category: conferences
 permalink: /publication/2023-01-01-human-feedback-qa
 excerpt: 'This paper presents a framework for continually improving extractive question answering systems through human feedback. We demonstrate how models can learn from corrective feedback to improve their performance over time.'
 date: 2023-01-01
-venue: 'EMNLP 2023'
+venue: 'The 2023 Conference on Empirical Methods in Natural Language Processing'
 paperurl: 'https://arxiv.org/abs/2305.12473'
-citation: 'Ge Gao, Hung-Ting Chen, Yoav Artzi, Eunsol Choi. (2023). &quot;Continually Improving Extractive QA via Human Feedback.&quot; <i>EMNLP 2023</i>.'
+citation: 'Ge Gao, Hung-Ting Chen, Yoav Artzi, Eunsol Choi. (2023). &quot;Continually Improving Extractive QA via Human Feedback.&quot; <i>The 2023 Conference on Empirical Methods in Natural Language Processing</i>.'
 ---
 
 This paper presents a framework for continually improving extractive question answering systems through human feedback. We demonstrate how models can learn from corrective feedback to improve their performance over time.

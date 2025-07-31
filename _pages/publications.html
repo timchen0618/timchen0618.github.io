@@ -11,14 +11,12 @@ author_profile: true
 
 {% include base_path %}
 
-<h2>Conference Papers</h2>
+<h2>Preprints</h2>
 {% for post in site.publications reversed %}
-  {% if post.category == "conferences" %}
+  {% if post.category == "manuscripts" %}
   <div class="pub-row">
     <div class="pub-badge">
-      {% assign venue_parts = post.venue | split: ' ' %}
-      {% assign venue_short = venue_parts[0] %}
-      <span class="badge">{{ venue_short }}</span>
+      <span class="badge">Preprint</span>
     </div>
 
     <div class="pub-content">
@@ -64,12 +62,14 @@ author_profile: true
   {% endif %}
 {% endfor %}
 
-<h2>Preprints</h2>
+<h2>Conference Papers</h2>
 {% for post in site.publications reversed %}
-  {% if post.category == "manuscripts" %}
+  {% if post.category == "conferences" %}
   <div class="pub-row">
     <div class="pub-badge">
-      <span class="badge">Preprint</span>
+      {% assign venue_parts = post.venue | split: ' ' %}
+      {% assign venue_short = venue_parts[0] %}
+      <span class="badge">{{ venue_short }}</span>
     </div>
 
     <div class="pub-content">
