@@ -15,10 +15,10 @@ My research interest broadly lies in natural language processing and machine lea
 - **Jan 2025**: Our paper on [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110) was accepted to NAACL 2025!
 
 ## Research Interests
-I am interested in finding out what is the most accurate, efficient, and reliable way to gather information and provide answers for user queries. 
-- Accurate: I am interested in improving the retrieval quality for various downstream tasks, including retriever tools in DeepResearch agents. How to accurately synthesize information from multiple knowledge sources is also an important problem.
-- Efficient: Current search systems often incur multiple calls to find information for a single query. It is possible to reduce the number of calls and maintain performance. 
-- Reliable: Retrieval systems should follow instructions reliably, and should generalize to various domains. RAG systems should be robust to irrelevant information, and how the information is presented. 
+I am interested in finding out what is the most **accurate**, **efficient**, and **reliable** way to gather information and provide answers for user queries. 
+- **Accurate**: I am interested in improving the retrieval quality for various downstream tasks, including retrievers as tools for DeepResearch agents. How to accurately synthesize information from multiple knowledge sources is also an important problem.
+- **Efficient**: Current search agents often incur multiple search calls to find information for a single query. It would be nice to reduce the number of calls and maintain similar performance. 
+- **Reliable**: Retrieval systems should follow instructions reliably, and should generalize to various domains. RAG systems should be robust to irrelevant information, and how the information is presented. 
 
 
 ## Service
