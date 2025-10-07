@@ -25,18 +25,26 @@ noindex: true
 </style>
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script id="plot-data" type="application/json">{{ site.data.clustering_visualization | jsonify }}</script>
+<!-- Removed inline _data JSON; now we fetch from clustering_visualization.html -->
 <script>
   (function() {
-    var raw = document.getElementById('plot-data');
+    var basePath = "{{ base_path }}" || "";
+    var selectEl = document.getElementById('questionSelect');
+    var plotEl = document.getElementById('plot');
+    var docEl = document.getElementById('documentText');
     var allQuestions = [];
-    try {
-      allQuestions = JSON.parse(raw.textContent || '[]');
-    } catch (e) {
-      allQuestions = [];
+
+    function loadFromStaticFile() {
+      var url = basePath + '/clustering_visualization.html';
+      return fetch(url)
+        .then(function(resp) { return resp.text(); })
+        .then(function(text) {
+          var match = text.match(/const\s+plotData\s*=\s*(\[[\s\S]*?\])\s*;/);
+          if (!match) throw new Error('plotData not found');
+          return JSON.parse(match[1]);
+        });
     }
 
-    var selectEl = document.getElementById('questionSelect');
     function populateSelect() {
       selectEl.innerHTML = '';
       for (var i = 0; i < (allQuestions || []).length; i++) {
@@ -47,18 +55,9 @@ noindex: true
       }
     }
 
-    var plotEl = document.getElementById('plot');
-    var docEl = document.getElementById('documentText');
-
     function renderQuestion(idx) {
       var traces = (allQuestions && allQuestions[idx]) ? allQuestions[idx] : [];
-      var layout = {
-        title: '',
-        autosize: true,
-        margin: { l: 40, r: 20, t: 16, b: 40 },
-        xaxis: { zeroline: false },
-        yaxis: { zeroline: false },
-      };
+      var layout = { title: '', autosize: true, margin: { l: 40, r: 20, t: 16, b: 40 }, xaxis: { zeroline: false }, yaxis: { zeroline: false } };
       var config = { responsive: true, displayModeBar: true };
       Plotly.react(plotEl, traces, layout, config);
       docEl.style.display = 'none';
@@ -80,16 +79,18 @@ noindex: true
       renderQuestion(idx);
     }
 
-    // Init
-    populateSelect();
-    selectEl.addEventListener('change', updateVisualization);
-    if ((allQuestions || []).length > 0) {
+    // Initialize
+    loadFromStaticFile().then(function(data) {
+      allQuestions = Array.isArray(data) ? data : [];
+      if (!allQuestions.length) throw new Error('Empty data array');
+      populateSelect();
       selectEl.value = '0';
       updateVisualization();
-    } else {
-      plotEl.innerHTML = '<p style="color:red;padding:12px;">No data found. Ensure _data/clustering_visualization.json exists and is valid JSON.</p>';
-    }
+    }).catch(function(err) {
+      plotEl.innerHTML = '<p style="color:red;padding:12px;">Failed to load data from clustering_visualization.html (' + (err && err.message ? err.message : 'unknown error') + ').</p>';
+    });
 
+    selectEl.addEventListener('change', updateVisualization);
     plotEl.addEventListener('plotly_click', onPointClick);
   })();
 </script> 
