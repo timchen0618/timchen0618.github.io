@@ -9,7 +9,7 @@ redirect_from:
 
 {% include base_path %}
 
-You can download my CV [here](/files/cv/CV_Jan2025.pdf).
+You can download my CV [here](/files/cv/CV_Oct072025.pdf).
 
 ## Education
 
