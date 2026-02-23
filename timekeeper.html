@@ -95,7 +95,11 @@ function loadData() {
 }
 
 function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ projects: state.projects, entries: state.entries }));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    projects: state.projects,
+    entries: state.entries,
+    timer: state.timerRunning ? { projectId: state.timerProject, startedAt: state.timerStartedAt } : null,
+  }));
 }
 
 function exportData() {
@@ -220,9 +224,9 @@ const state = {
   entries: saved ? saved.entries : generateSampleEntries(defaultProjects),
   weekOffset: 0,
   activeView: "dashboard",
-  timerProject: null,
-  timerSeconds: 0,
-  timerRunning: false,
+  timerProject: (saved && saved.timer) ? saved.timer.projectId : null,
+  timerStartedAt: (saved && saved.timer) ? saved.timer.startedAt : null,
+  timerRunning: !!(saved && saved.timer),
   timerInterval: null,
   showAddEntry: false,
   showAddProject: false,
@@ -334,9 +338,9 @@ function render() {
   const main = h("main", null);
 
   // Timer bar
-  if (state.timerRunning) {
+  if (state.timerRunning && state.timerStartedAt) {
     const proj = getProject(state.timerProject);
-    const secs = state.timerSeconds;
+    const secs = Math.floor((Date.now() - state.timerStartedAt) / 1000);
     const pad = n => String(n).padStart(2,"0");
     const timeStr = `${pad(Math.floor(secs/3600))}:${pad(Math.floor((secs%3600)/60))}:${pad(secs%60)}`;
     main.appendChild(h("div", { className:"fade-in timer-bar" },
@@ -872,31 +876,42 @@ function renderDataManagerModal() {
 
 function startTimer(projectId) {
   state.timerProject = projectId;
-  state.timerSeconds = 0;
+  state.timerStartedAt = Date.now();
   state.timerRunning = true;
-  state.timerInterval = setInterval(() => { state.timerSeconds++; render(); }, 1000);
+  saveData();
+  startTimerTick();
   render();
 }
 
+function startTimerTick() {
+  clearInterval(state.timerInterval);
+  state.timerInterval = setInterval(() => { render(); }, 1000);
+}
+
 function stopTimer() {
-  if (state.timerSeconds >= 60 && state.timerProject) {
-    state.entries.push({
-      id: "e-"+Date.now(),
-      projectId: state.timerProject,
-      date: dateStr(new Date()),
-      duration: Math.round(state.timerSeconds/60),
-      note: "Timer entry"
-    });
-    saveData();
+  if (state.timerStartedAt && state.timerProject) {
+    const elapsedMins = Math.round((Date.now() - state.timerStartedAt) / 60000);
+    if (elapsedMins >= 1) {
+      state.entries.push({
+        id: "e-"+Date.now(),
+        projectId: state.timerProject,
+        date: dateStr(new Date()),
+        duration: elapsedMins,
+        note: "Timer entry"
+      });
+    }
   }
   clearInterval(state.timerInterval);
   state.timerRunning = false;
   state.timerProject = null;
-  state.timerSeconds = 0;
+  state.timerStartedAt = null;
+  state.timerInterval = null;
+  saveData();
   render();
 }
 
 // Initial render
+if (state.timerRunning) startTimerTick();
 render();
 </script>
 </body>
