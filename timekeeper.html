@@ -98,6 +98,82 @@ function saveData() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ projects: state.projects, entries: state.entries }));
 }
 
+function exportData() {
+  const data = {
+    _format: "timekeeper-export",
+    _version: 1,
+    _exportedAt: new Date().toISOString(),
+    _entryCount: state.entries.length,
+    _projectCount: state.projects.length,
+    categories: CATEGORIES,
+    projects: state.projects,
+    entries: state.entries,
+  };
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `timekeeper-export-${dateStr(new Date())}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importData(file) {
+  state.importError = "";
+  state.importSuccess = "";
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      // Validate structure
+      if (!data._format || data._format !== "timekeeper-export") {
+        // Try to accept raw {projects, entries} format too
+        if (!data.projects || !data.entries || !Array.isArray(data.projects) || !Array.isArray(data.entries)) {
+          state.importError = "Invalid file format. Expected a TimeKeeper export JSON file.";
+          render();
+          return;
+        }
+      }
+      // Validate projects
+      const projects = data.projects;
+      if (!Array.isArray(projects) || !projects.every(p => p.id && p.name && p.category)) {
+        state.importError = "Invalid project data. Each project needs id, name, and category.";
+        render();
+        return;
+      }
+      // Validate entries
+      const entries = data.entries;
+      if (!Array.isArray(entries) || !entries.every(e => e.id && e.projectId && e.date && typeof e.duration === "number")) {
+        state.importError = "Invalid entry data. Each entry needs id, projectId, date, and duration.";
+        render();
+        return;
+      }
+      state.projects = projects;
+      state.entries = entries;
+      saveData();
+      state.importSuccess = `Imported ${projects.length} projects and ${entries.length} entries successfully.`;
+      state.importError = "";
+      render();
+    } catch(err) {
+      state.importError = "Failed to parse JSON: " + err.message;
+      render();
+    }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllData() {
+  state.projects = [...defaultProjects];
+  state.entries = generateSampleEntries(defaultProjects);
+  saveData();
+  state.showDataManager = false;
+  render();
+}
+
 function generateSampleEntries(projects) {
   const entries = [];
   const now = new Date();
@@ -150,6 +226,11 @@ const state = {
   timerInterval: null,
   showAddEntry: false,
   showAddProject: false,
+  showDataManager: false,
+  importError: "",
+  importSuccess: "",
+  confirmClearDay: null,
+  confirmReset: false,
   newEntry: { projectId: "", date: dateStr(new Date()), hours: "", minutes: "", note: "" },
   newProject: { name: "", category: "work", color: "#E8453C" },
 };
@@ -240,6 +321,7 @@ function render() {
       })
     ),
     h("div", { style: { display:"flex",gap:"8px" } },
+      h("button", { className:"tk-btn", style: { background:"rgba(255,255,255,0.06)",color:"#E8E6E3",padding:"8px 14px",fontSize:"13px" }, onClick: ()=>{ state.showDataManager=true; state.importError=""; state.importSuccess=""; render(); } }, "⇄ Data"),
       h("button", { className:"tk-btn", style: { background:"rgba(255,255,255,0.06)",color:"#E8E6E3",padding:"8px 16px",fontSize:"13px" }, onClick: ()=>{ state.showAddProject=true; render(); } }, "+ Project"),
       h("button", { className:"tk-btn", style: { background:"linear-gradient(135deg,#E8453C,#D63B33)",color:"#fff",padding:"8px 18px",fontSize:"13px" }, onClick: ()=>{ state.showAddEntry=true; render(); } }, "+ Log Time")
     )
@@ -479,6 +561,31 @@ function render() {
       if(isToday) hdr.appendChild(h("span",{className:"today-badge"},"TODAY"));
       hdr.appendChild(h("span",{className:"day-divider"}));
       hdr.appendChild(h("span",{className:"mono",style:{fontSize:"12px"}},fmtDur(dailyTotals[dayIdx])));
+      if(dayE.length) {
+        if (state.confirmClearDay === ds) {
+          // Show confirm/cancel inline
+          hdr.appendChild(h("span",{style:{marginLeft:"8px",display:"inline-flex",alignItems:"center",gap:"4px"}},
+            h("span",{style:{fontSize:"11px",color:"rgba(255,255,255,0.4)",marginRight:"4px"}},"Clear "+dayE.length+" entries?"),
+            h("button",{className:"tk-btn",style:{background:"rgba(232,69,60,0.2)",color:"#E8453C",border:"1px solid rgba(232,69,60,0.3)",padding:"3px 10px",fontSize:"11px"},onClick:(e)=>{
+              e.stopPropagation();
+              state.entries=state.entries.filter(en=>en.date!==ds);
+              state.confirmClearDay=null;
+              saveData();render();
+            }},"Yes, clear"),
+            h("button",{className:"tk-btn",style:{background:"rgba(255,255,255,0.06)",color:"rgba(255,255,255,0.5)",border:"1px solid rgba(255,255,255,0.08)",padding:"3px 10px",fontSize:"11px"},onClick:(e)=>{
+              e.stopPropagation();
+              state.confirmClearDay=null;
+              render();
+            }},"Cancel")
+          ));
+        } else {
+          hdr.appendChild(h("button",{className:"tk-btn",style:{background:"rgba(232,69,60,0.08)",color:"rgba(232,69,60,0.6)",border:"1px solid rgba(232,69,60,0.15)",padding:"4px 10px",fontSize:"11px",marginLeft:"8px"},onClick:(e)=>{
+            e.stopPropagation();
+            state.confirmClearDay=ds;
+            render();
+          }},"✕ Clear Day"));
+        }
+      }
       section.appendChild(hdr);
       if(!dayE.length) {
         section.appendChild(h("div",{style:{padding:"12px 16px",color:"rgba(255,255,255,0.15)",fontSize:"13px"}},"No entries"));
@@ -511,6 +618,7 @@ function render() {
   // ===== MODALS =====
   if (state.showAddEntry) renderAddEntryModal();
   if (state.showAddProject) renderAddProjectModal();
+  if (state.showDataManager) renderDataManagerModal();
 }
 
 function renderAddEntryModal() {
@@ -585,6 +693,98 @@ function renderAddProjectModal() {
   }},"Create Project"));
   form.appendChild(btns);
   modal.appendChild(form);
+  overlay.appendChild(modal);
+  document.getElementById("app").appendChild(overlay);
+}
+
+function renderDataManagerModal() {
+  const overlay = h("div",{className:"modal-overlay",onClick:()=>{state.showDataManager=false;render();}});
+  const modal = h("div",{className:"modal",style:{maxWidth:"500px"},onClick:e=>e.stopPropagation()});
+  modal.appendChild(h("h3",{className:"serif",style:{fontSize:"22px",marginBottom:"8px"}},"Data Manager"));
+  modal.appendChild(h("p",{style:{fontSize:"13px",color:"rgba(255,255,255,0.35)",marginBottom:"24px"}},"Export your data as JSON to back up or transfer to another device. Import a previous export to restore."));
+
+  const sections = h("div",{style:{display:"flex",flexDirection:"column",gap:"20px"}});
+
+  // --- Stats ---
+  const statsBox = h("div",{style:{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:"12px",padding:"16px",display:"flex",gap:"24px"}});
+  statsBox.appendChild(h("div",null,
+    h("div",{className:"stat-label"},"Projects"),
+    h("div",{style:{fontSize:"20px",fontWeight:"700"}},String(state.projects.length))
+  ));
+  statsBox.appendChild(h("div",null,
+    h("div",{className:"stat-label"},"Entries"),
+    h("div",{style:{fontSize:"20px",fontWeight:"700"}},String(state.entries.length))
+  ));
+  const earliest = state.entries.length ? state.entries.reduce((min,e)=>e.date<min?e.date:min,state.entries[0].date) : "—";
+  const latest = state.entries.length ? state.entries.reduce((max,e)=>e.date>max?e.date:max,state.entries[0].date) : "—";
+  statsBox.appendChild(h("div",null,
+    h("div",{className:"stat-label"},"Date Range"),
+    h("div",{style:{fontSize:"13px",fontWeight:"500",marginTop:"4px"}},earliest===latest?earliest:`${earliest} → ${latest}`)
+  ));
+  sections.appendChild(statsBox);
+
+  // --- Export ---
+  const exportSection = h("div",null);
+  exportSection.appendChild(h("div",{style:{fontSize:"14px",fontWeight:"600",marginBottom:"10px",display:"flex",alignItems:"center",gap:"8px"}},
+    h("span",{style:{fontSize:"16px"}},"📤"),
+    "Export"
+  ));
+  exportSection.appendChild(h("p",{style:{fontSize:"12px",color:"rgba(255,255,255,0.35)",marginBottom:"12px"}},"Download all projects and time entries as a JSON file. This file can be imported into any version of TimeKeeper."));
+  exportSection.appendChild(h("button",{className:"tk-btn",style:{background:"rgba(76,217,100,0.12)",color:"#4CD964",border:"1px solid rgba(76,217,100,0.25)",padding:"10px 20px",fontSize:"13px",width:"100%",justifyContent:"center"},onClick:()=>{exportData();}},"⬇ Download timekeeper-export-"+dateStr(new Date())+".json"));
+  sections.appendChild(exportSection);
+
+  // --- Import ---
+  const importSection = h("div",null);
+  importSection.appendChild(h("div",{style:{fontSize:"14px",fontWeight:"600",marginBottom:"10px",display:"flex",alignItems:"center",gap:"8px"}},
+    h("span",{style:{fontSize:"16px"}},"📥"),
+    "Import"
+  ));
+  importSection.appendChild(h("p",{style:{fontSize:"12px",color:"rgba(255,255,255,0.35)",marginBottom:"12px"}},"Load a previously exported JSON file. This will replace all current data."));
+
+  // Hidden file input
+  const fileInput = h("input",{type:"file",accept:".json,application/json",style:{display:"none"},onChange:e=>{
+    const file = e.target.files[0];
+    if(file) importData(file);
+  }});
+  importSection.appendChild(fileInput);
+
+  const importBtn = h("button",{className:"tk-btn",style:{background:"rgba(88,86,214,0.12)",color:"#5856D6",border:"1px solid rgba(88,86,214,0.25)",padding:"10px 20px",fontSize:"13px",width:"100%",justifyContent:"center"},onClick:()=>{fileInput.click();}},"⬆ Choose JSON File to Import");
+  importSection.appendChild(importBtn);
+
+  // Status messages
+  if (state.importError) {
+    importSection.appendChild(h("div",{style:{marginTop:"10px",padding:"10px 14px",background:"rgba(232,69,60,0.1)",border:"1px solid rgba(232,69,60,0.25)",borderRadius:"10px",fontSize:"13px",color:"#E8453C"}},state.importError));
+  }
+  if (state.importSuccess) {
+    importSection.appendChild(h("div",{style:{marginTop:"10px",padding:"10px 14px",background:"rgba(76,217,100,0.1)",border:"1px solid rgba(76,217,100,0.25)",borderRadius:"10px",fontSize:"13px",color:"#4CD964"}},state.importSuccess));
+  }
+  sections.appendChild(importSection);
+
+  // --- Danger Zone ---
+  const dangerSection = h("div",{style:{borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:"16px"}});
+  dangerSection.appendChild(h("div",{style:{fontSize:"14px",fontWeight:"600",marginBottom:"10px",display:"flex",alignItems:"center",gap:"8px",color:"rgba(255,255,255,0.4)"}},
+    h("span",{style:{fontSize:"16px"}},"⚠"),
+    "Reset"
+  ));
+  if (state.confirmReset) {
+    dangerSection.appendChild(h("div",{style:{display:"flex",alignItems:"center",gap:"8px",flexWrap:"wrap"}},
+      h("span",{style:{fontSize:"12px",color:"rgba(255,255,255,0.4)"}},"Reset all data to defaults? This cannot be undone."),
+      h("button",{className:"tk-btn",style:{background:"rgba(232,69,60,0.2)",color:"#E8453C",border:"1px solid rgba(232,69,60,0.3)",padding:"6px 14px",fontSize:"12px"},onClick:()=>{ state.confirmReset=false; clearAllData(); }},"Yes, reset everything"),
+      h("button",{className:"tk-btn",style:{background:"rgba(255,255,255,0.06)",color:"rgba(255,255,255,0.5)",border:"1px solid rgba(255,255,255,0.08)",padding:"6px 14px",fontSize:"12px"},onClick:()=>{ state.confirmReset=false; render(); }},"Cancel")
+    ));
+  } else {
+    dangerSection.appendChild(h("button",{className:"tk-btn",style:{background:"rgba(232,69,60,0.08)",color:"rgba(232,69,60,0.6)",border:"1px solid rgba(232,69,60,0.15)",padding:"8px 16px",fontSize:"12px"},onClick:()=>{
+      state.confirmReset=true; render();
+    }},"Reset to Sample Data"));
+  }
+  sections.appendChild(dangerSection);
+
+  // Close button
+  const closeBtn = h("div",{style:{marginTop:"8px"}});
+  closeBtn.appendChild(h("button",{className:"tk-btn",style:{width:"100%",background:"rgba(255,255,255,0.06)",color:"#E8E6E3",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{state.showDataManager=false;render();}},"Close"));
+  sections.appendChild(closeBtn);
+
+  modal.appendChild(sections);
   overlay.appendChild(modal);
   document.getElementById("app").appendChild(overlay);
 }
