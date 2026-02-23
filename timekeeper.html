@@ -231,6 +231,9 @@ const state = {
   importSuccess: "",
   confirmClearDay: null,
   confirmReset: false,
+  showEditProject: false,
+  editProject: { id: "", name: "", category: "work", color: "#E8453C" },
+  confirmDeleteProject: null,
   newEntry: { projectId: "", date: dateStr(new Date()), hours: "", minutes: "", note: "" },
   newProject: { name: "", category: "work", color: "#E8453C" },
 };
@@ -471,7 +474,7 @@ function render() {
     const content = h("div", { className:"fade-in", style:{display:"flex",flexDirection:"column",gap:"12px"} });
     projData.forEach(p => {
       const maxD = Math.max(...p.daily,1);
-      const row = h("div", { className:"tk-card project-row", style:{display:"grid",gridTemplateColumns:"200px 1fr 100px",alignItems:"center",gap:"20px"} });
+      const row = h("div", { className:"tk-card project-row", style:{display:"grid",gridTemplateColumns:"200px 1fr 100px 36px",alignItems:"center",gap:"20px"} });
       row.appendChild(h("div", null,
         h("div",{style:{display:"flex",alignItems:"center",gap:"10px",marginBottom:"4px"}},
           h("div",{style:{width:"10px",height:"10px",borderRadius:"3px",background:p.color}}),
@@ -494,6 +497,13 @@ function render() {
         h("div",{className:"mono",style:{fontWeight:"600",fontSize:"16px"}},fmtDur(p.total)),
         h("div",{style:{fontSize:"11px",color:"rgba(255,255,255,0.3)"}},totalMins>0?((p.total/totalMins)*100).toFixed(0):"0","% of week")
       ));
+      row.appendChild(h("button",{className:"tk-btn",style:{background:"rgba(255,255,255,0.04)",color:"rgba(255,255,255,0.35)",border:"1px solid rgba(255,255,255,0.06)",width:"32px",height:"32px",borderRadius:"8px",justifyContent:"center",fontSize:"14px",padding:"0"},title:"Edit project",onClick:(e)=>{
+        e.stopPropagation();
+        state.editProject = { id:p.id, name:p.name, category:p.category, color:p.color };
+        state.showEditProject = true;
+        state.confirmDeleteProject = null;
+        render();
+      }},"✎"));
       content.appendChild(row);
     });
     main.appendChild(content);
@@ -618,6 +628,7 @@ function render() {
   // ===== MODALS =====
   if (state.showAddEntry) renderAddEntryModal();
   if (state.showAddProject) renderAddProjectModal();
+  if (state.showEditProject) renderEditProjectModal();
   if (state.showDataManager) renderDataManagerModal();
 }
 
@@ -692,6 +703,76 @@ function renderAddProjectModal() {
     saveData();render();
   }},"Create Project"));
   form.appendChild(btns);
+  modal.appendChild(form);
+  overlay.appendChild(modal);
+  document.getElementById("app").appendChild(overlay);
+}
+
+function renderEditProjectModal() {
+  const overlay = h("div",{className:"modal-overlay",onClick:()=>{state.showEditProject=false;state.confirmDeleteProject=null;render();}});
+  const modal = h("div",{className:"modal",onClick:e=>e.stopPropagation()});
+  modal.appendChild(h("h3",{className:"serif",style:{fontSize:"22px",marginBottom:"24px"}},"Edit Project"));
+  const form = h("div",{style:{display:"flex",flexDirection:"column",gap:"14px"}});
+
+  // Name
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Name"),h("input",{className:"tk-input",value:state.editProject.name,onChange:e=>{state.editProject.name=e.target.value;}})));
+
+  // Category
+  const catSelect = h("select",{className:"tk-input",value:state.editProject.category,onChange:e=>{state.editProject.category=e.target.value;}});
+  CATEGORIES.forEach(c=>catSelect.appendChild(h("option",{value:c.id},c.icon+" "+c.label)));
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Category"),catSelect));
+
+  // Color
+  const colors = ["#E8453C","#FF6347","#F5A623","#FFCC02","#4CD964","#34AADC","#5856D6","#7B68EE","#FF6B9D","#A2845E"];
+  const colorRow = h("div",{style:{display:"flex",gap:"8px",flexWrap:"wrap"}});
+  colors.forEach(c => {
+    colorRow.appendChild(h("div",{className:`color-swatch ${state.editProject.color===c?"selected":""}`,style:{background:c},onClick:()=>{state.editProject.color=c;render();}}));
+  });
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Color"),colorRow));
+
+  // Save / Cancel
+  const btns = h("div",{style:{display:"flex",gap:"10px",marginTop:"8px"}});
+  btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"rgba(255,255,255,0.06)",color:"#E8E6E3",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{state.showEditProject=false;state.confirmDeleteProject=null;render();}},"Cancel"));
+  btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"linear-gradient(135deg,#E8453C,#D63B33)",color:"#fff",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{
+    if(!state.editProject.name.trim()) return;
+    const idx = state.projects.findIndex(p=>p.id===state.editProject.id);
+    if(idx>=0) {
+      state.projects[idx].name = state.editProject.name.trim();
+      state.projects[idx].category = state.editProject.category;
+      state.projects[idx].color = state.editProject.color;
+    }
+    state.showEditProject=false;
+    state.confirmDeleteProject=null;
+    saveData();render();
+  }},"Save Changes"));
+  form.appendChild(btns);
+
+  // Delete project (danger zone)
+  const danger = h("div",{style:{borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:"14px",marginTop:"8px"}});
+  const entryCount = state.entries.filter(e=>e.projectId===state.editProject.id).length;
+  if (state.confirmDeleteProject === state.editProject.id) {
+    danger.appendChild(h("div",{style:{display:"flex",flexDirection:"column",gap:"8px"}},
+      h("span",{style:{fontSize:"12px",color:"rgba(232,69,60,0.7)"}},"Delete this project"+(entryCount>0?" and its "+entryCount+" time entries":"")+"? This cannot be undone."),
+      h("div",{style:{display:"flex",gap:"8px"}},
+        h("button",{className:"tk-btn",style:{background:"rgba(232,69,60,0.2)",color:"#E8453C",border:"1px solid rgba(232,69,60,0.3)",padding:"8px 14px",fontSize:"12px"},onClick:()=>{
+          state.projects = state.projects.filter(p=>p.id!==state.editProject.id);
+          state.entries = state.entries.filter(e=>e.projectId!==state.editProject.id);
+          state.showEditProject=false;
+          state.confirmDeleteProject=null;
+          saveData();render();
+        }},"Yes, delete project"),
+        h("button",{className:"tk-btn",style:{background:"rgba(255,255,255,0.06)",color:"rgba(255,255,255,0.5)",border:"1px solid rgba(255,255,255,0.08)",padding:"8px 14px",fontSize:"12px"},onClick:()=>{
+          state.confirmDeleteProject=null;render();
+        }},"Cancel")
+      )
+    ));
+  } else {
+    danger.appendChild(h("button",{className:"tk-btn",style:{background:"rgba(232,69,60,0.08)",color:"rgba(232,69,60,0.5)",border:"1px solid rgba(232,69,60,0.12)",padding:"6px 14px",fontSize:"11px"},onClick:()=>{
+      state.confirmDeleteProject=state.editProject.id;render();
+    }},"Delete Project"+(entryCount>0?" ("+entryCount+" entries)":"")));
+  }
+  form.appendChild(danger);
+
   modal.appendChild(form);
   overlay.appendChild(modal);
   document.getElementById("app").appendChild(overlay);
