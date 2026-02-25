@@ -238,14 +238,24 @@ const state = {
   showEditProject: false,
   editProject: { id: "", name: "", category: "work", color: "#E8453C" },
   confirmDeleteProject: null,
-  newEntry: { projectId: "", date: dateStr(new Date()), startTime: "", hours: "", minutes: "", note: "" },
+  showEditEntry: false,
+  editEntry: { id: "", projectId: "", date: "", startTime: "", endTime: "", note: "" },
+  newEntry: { projectId: "", date: dateStr(new Date()), startTime: "", endTime: "", note: "" },
   newProject: { name: "", category: "work", color: "#E8453C" },
 };
 
 // ===== HELPERS =====
-function dateStr(d) { return d.toISOString().split("T")[0]; }
+function dateStr(d) { const pad=n=>String(n).padStart(2,"0"); return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
 function fmtDur(m) { if(m===0) return "0m"; const h=Math.floor(m/60), mm=m%60; if(!h) return mm+"m"; if(!mm) return h+"h"; return h+"h "+mm+"m"; }
 function fmtDurLong(m) { const h=Math.floor(m/60), mm=m%60; if(!h) return mm+" min"; if(!mm) return h+" hr"; return h+" hr "+mm+" min"; }
+function timeDiffMins(start, end) {
+  if(!start||!end) return 0;
+  const [sh,sm] = start.split(":").map(Number);
+  const [eh,em] = end.split(":").map(Number);
+  let diff = (eh*60+em) - (sh*60+sm);
+  if(diff<=0) diff += 24*60; // handle crossing midnight
+  return diff;
+}
 function getWeekDates(offset) {
   const now = new Date(), dow = now.getDay();
   const mon = new Date(now);
@@ -629,8 +639,14 @@ function render() {
 
           const row = h("div",{className:"tk-card entry-row"},
             h("div",{style:{display:"flex",alignItems:"center",gap:"12px"}},...leftContent),
-            h("div",{style:{display:"flex",alignItems:"center",gap:"12px"}},
+            h("div",{style:{display:"flex",alignItems:"center",gap:"10px"}},
               h("span",{className:"mono",style:{fontSize:"14px"}},fmtDur(entry.duration)),
+              h("button",{className:"entry-delete",title:"Edit",style:{color:"rgba(255,255,255,0.2)",fontSize:"13px"},onClick:(ev)=>{
+                ev.stopPropagation();
+                state.editEntry = { id:entry.id, projectId:entry.projectId, date:entry.date, startTime:entry.startTime||"", endTime:entry.endTime||"", note:entry.note||"" };
+                state.showEditEntry = true;
+                render();
+              }},"✎"),
               h("button",{className:"entry-delete",title:"Delete",onClick:()=>{state.entries=state.entries.filter(e=>e.id!==entry.id);saveData();render();}},"×")
             )
           );
@@ -649,6 +665,7 @@ function render() {
   if (state.showAddEntry) renderAddEntryModal();
   if (state.showAddProject) renderAddProjectModal();
   if (state.showEditProject) renderEditProjectModal();
+  if (state.showEditEntry) renderEditEntryModal();
   if (state.showDataManager) renderDataManagerModal();
 }
 
@@ -665,44 +682,110 @@ function renderAddEntryModal() {
   form.appendChild(h("div",null,h("label",{className:"label-sm"},"Project"),projSelect));
 
   // Date
-  const dateInput = h("input",{className:"tk-input",type:"date",value:state.newEntry.date,onChange:e=>{state.newEntry.date=e.target.value;}});
-  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Date"),dateInput));
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Date"),h("input",{className:"tk-input",type:"date",value:state.newEntry.date,onInput:e=>{state.newEntry.date=e.target.value;},onChange:e=>{state.newEntry.date=e.target.value;}})));
 
-  // Start time
-  const startTimeInput = h("input",{className:"tk-input",type:"time",value:state.newEntry.startTime,onInput:e=>{state.newEntry.startTime=e.target.value;},onChange:e=>{state.newEntry.startTime=e.target.value;}});
-  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Start Time (optional)"),startTimeInput));
-
-  // Hours/Mins
+  // Start / End time row
   const timeRow = h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}});
-  timeRow.appendChild(h("div",null,h("label",{className:"label-sm"},"Hours"),h("input",{className:"tk-input",type:"number",min:"0",max:"23",placeholder:"0",value:state.newEntry.hours,onInput:e=>{state.newEntry.hours=e.target.value;},onChange:e=>{state.newEntry.hours=e.target.value;}})));
-  timeRow.appendChild(h("div",null,h("label",{className:"label-sm"},"Minutes"),h("input",{className:"tk-input",type:"number",min:"0",max:"59",placeholder:"0",value:state.newEntry.minutes,onInput:e=>{state.newEntry.minutes=e.target.value;},onChange:e=>{state.newEntry.minutes=e.target.value;}})));
+  timeRow.appendChild(h("div",null,h("label",{className:"label-sm"},"Start Time"),h("input",{className:"tk-input",type:"time",value:state.newEntry.startTime,onInput:e=>{state.newEntry.startTime=e.target.value;},onChange:e=>{state.newEntry.startTime=e.target.value;}})));
+  timeRow.appendChild(h("div",null,h("label",{className:"label-sm"},"End Time"),h("input",{className:"tk-input",type:"time",value:state.newEntry.endTime,onInput:e=>{state.newEntry.endTime=e.target.value;},onChange:e=>{state.newEntry.endTime=e.target.value;}})));
   form.appendChild(timeRow);
 
+  // Duration preview
+  const dur = timeDiffMins(state.newEntry.startTime, state.newEntry.endTime);
+  if(state.newEntry.startTime && state.newEntry.endTime && dur > 0) {
+    form.appendChild(h("div",{style:{fontSize:"13px",color:"rgba(255,255,255,0.4)",padding:"6px 0"}},
+      "Duration: ",
+      h("span",{className:"mono",style:{color:"rgba(255,255,255,0.6)"}},fmtDur(dur))
+    ));
+  }
+
   // Note
-  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Note (optional)"),h("input",{className:"tk-input",placeholder:"What were you working on?",value:state.newEntry.note,onChange:e=>{state.newEntry.note=e.target.value;}})));
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Note (optional)"),h("input",{className:"tk-input",placeholder:"What were you working on?",value:state.newEntry.note,onInput:e=>{state.newEntry.note=e.target.value;},onChange:e=>{state.newEntry.note=e.target.value;}})));
 
   // Buttons
   const btns = h("div",{style:{display:"flex",gap:"10px",marginTop:"8px"}});
   btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"rgba(255,255,255,0.06)",color:"#E8E6E3",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{state.showAddEntry=false;render();}},"Cancel"));
   btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"linear-gradient(135deg,#E8453C,#D63B33)",color:"#fff",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{
-    const dur=(parseInt(state.newEntry.hours)||0)*60+(parseInt(state.newEntry.minutes)||0);
-    if(!state.newEntry.projectId||dur<=0) return;
-    const entry = {id:"e-"+Date.now(),projectId:state.newEntry.projectId,date:state.newEntry.date,duration:dur,note:state.newEntry.note};
-    // Compute start/end times if start time provided
-    if(state.newEntry.startTime) {
-      entry.startTime = state.newEntry.startTime;
-      const [sh,sm] = state.newEntry.startTime.split(":").map(Number);
-      const endTotalMins = sh*60 + sm + dur;
-      const eh = Math.floor(endTotalMins/60) % 24;
-      const em = endTotalMins % 60;
-      const pad = n => String(n).padStart(2,"0");
-      entry.endTime = pad(eh)+":"+pad(em);
-    }
-    state.entries.push(entry);
-    state.newEntry={projectId:"",date:dateStr(new Date()),startTime:"",hours:"",minutes:"",note:""};
+    const dur = timeDiffMins(state.newEntry.startTime, state.newEntry.endTime);
+    if(!state.newEntry.projectId || !state.newEntry.startTime || !state.newEntry.endTime || dur<=0) return;
+    state.entries.push({
+      id:"e-"+Date.now(),
+      projectId:state.newEntry.projectId,
+      date:state.newEntry.date,
+      duration:dur,
+      startTime:state.newEntry.startTime,
+      endTime:state.newEntry.endTime,
+      note:state.newEntry.note
+    });
+    state.newEntry={projectId:"",date:dateStr(new Date()),startTime:"",endTime:"",note:""};
     state.showAddEntry=false;
     saveData();render();
   }},"Save Entry"));
+  form.appendChild(btns);
+  modal.appendChild(form);
+  overlay.appendChild(modal);
+  document.getElementById("app").appendChild(overlay);
+}
+
+function renderEditEntryModal() {
+  const overlay = h("div",{className:"modal-overlay",onClick:()=>{state.showEditEntry=false;render();}});
+  const modal = h("div",{className:"modal",onClick:e=>e.stopPropagation()});
+  modal.appendChild(h("h3",{className:"serif",style:{fontSize:"22px",marginBottom:"24px"}},"Edit Entry"));
+  const form = h("div",{style:{display:"flex",flexDirection:"column",gap:"14px"}});
+
+  // Project select
+  const projSelect = h("select",{className:"tk-input",value:state.editEntry.projectId,onChange:e=>{state.editEntry.projectId=e.target.value;}});
+  state.projects.forEach(p=>projSelect.appendChild(h("option",{value:p.id},p.name)));
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Project"),projSelect));
+
+  // Date
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Date"),h("input",{className:"tk-input",type:"date",value:state.editEntry.date,onInput:e=>{state.editEntry.date=e.target.value;},onChange:e=>{state.editEntry.date=e.target.value;}})));
+
+  // Start / End time row
+  const timeRow = h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}});
+  timeRow.appendChild(h("div",null,h("label",{className:"label-sm"},"Start Time"),h("input",{className:"tk-input",type:"time",value:state.editEntry.startTime,onInput:e=>{state.editEntry.startTime=e.target.value;},onChange:e=>{state.editEntry.startTime=e.target.value;}})));
+  timeRow.appendChild(h("div",null,h("label",{className:"label-sm"},"End Time"),h("input",{className:"tk-input",type:"time",value:state.editEntry.endTime,onInput:e=>{state.editEntry.endTime=e.target.value;},onChange:e=>{state.editEntry.endTime=e.target.value;}})));
+  form.appendChild(timeRow);
+
+  // Duration preview
+  const dur = timeDiffMins(state.editEntry.startTime, state.editEntry.endTime);
+  if(state.editEntry.startTime && state.editEntry.endTime && dur > 0) {
+    form.appendChild(h("div",{style:{fontSize:"13px",color:"rgba(255,255,255,0.4)",padding:"6px 0"}},
+      "Duration: ",
+      h("span",{className:"mono",style:{color:"rgba(255,255,255,0.6)"}},fmtDur(dur))
+    ));
+  }
+
+  // Note
+  form.appendChild(h("div",null,h("label",{className:"label-sm"},"Note (optional)"),h("input",{className:"tk-input",placeholder:"What were you working on?",value:state.editEntry.note,onInput:e=>{state.editEntry.note=e.target.value;},onChange:e=>{state.editEntry.note=e.target.value;}})));
+
+  // Buttons
+  const btns = h("div",{style:{display:"flex",gap:"10px",marginTop:"8px"}});
+  btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"rgba(255,255,255,0.06)",color:"#E8E6E3",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{state.showEditEntry=false;render();}},"Cancel"));
+  btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"linear-gradient(135deg,#E8453C,#D63B33)",color:"#fff",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{
+    const dur = timeDiffMins(state.editEntry.startTime, state.editEntry.endTime);
+    if(!state.editEntry.projectId) return;
+    const idx = state.entries.findIndex(e=>e.id===state.editEntry.id);
+    if(idx>=0) {
+      state.entries[idx].projectId = state.editEntry.projectId;
+      state.entries[idx].date = state.editEntry.date;
+      state.entries[idx].note = state.editEntry.note;
+      if(state.editEntry.startTime && state.editEntry.endTime && dur > 0) {
+        state.entries[idx].startTime = state.editEntry.startTime;
+        state.entries[idx].endTime = state.editEntry.endTime;
+        state.entries[idx].duration = dur;
+      } else if(state.editEntry.startTime || state.editEntry.endTime) {
+        // Only one time filled — keep existing duration, update what's provided
+        if(state.editEntry.startTime) state.entries[idx].startTime = state.editEntry.startTime;
+        if(state.editEntry.endTime) state.entries[idx].endTime = state.editEntry.endTime;
+      } else {
+        delete state.entries[idx].startTime;
+        delete state.entries[idx].endTime;
+      }
+    }
+    state.showEditEntry=false;
+    saveData();render();
+  }},"Save Changes"));
   form.appendChild(btns);
   modal.appendChild(form);
   overlay.appendChild(modal);
