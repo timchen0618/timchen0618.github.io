@@ -256,6 +256,57 @@ function timeDiffMins(start, end) {
   if(diff<=0) diff += 24*60; // handle crossing midnight
   return diff;
 }
+
+function crossesMidnight(start, end) {
+  if(!start||!end) return false;
+  const [sh,sm] = start.split(":").map(Number);
+  const [eh,em] = end.split(":").map(Number);
+  return (eh*60+em) <= (sh*60+sm);
+}
+
+function nextDateStr(ds) {
+  const d = new Date(ds+"T12:00:00");
+  d.setDate(d.getDate()+1);
+  return dateStr(d);
+}
+
+function createTimeEntries(projectId, date, startTime, endTime, note) {
+  const entries = [];
+  if(crossesMidnight(startTime, endTime)) {
+    // Part 1: startTime → 23:59 on the original date
+    const dur1 = timeDiffMins(startTime, "23:59");
+    entries.push({
+      id:"e-"+Date.now(),
+      projectId, date,
+      duration: dur1 + 1,
+      startTime,
+      endTime: "23:59",
+      note
+    });
+    // Part 2: 00:00 → endTime on the next date
+    const dur2 = timeDiffMins("00:00", endTime);
+    if(dur2 > 0) {
+      entries.push({
+        id:"e-"+(Date.now()+1),
+        projectId, date: nextDateStr(date),
+        duration: dur2,
+        startTime: "00:00",
+        endTime,
+        note
+      });
+    }
+  } else {
+    const dur = timeDiffMins(startTime, endTime);
+    entries.push({
+      id:"e-"+Date.now(),
+      projectId, date,
+      duration: dur,
+      startTime, endTime,
+      note
+    });
+  }
+  return entries;
+}
 function getWeekDates(offset) {
   const now = new Date(), dow = now.getDay();
   const mon = new Date(now);
@@ -693,10 +744,15 @@ function renderAddEntryModal() {
   // Duration preview
   const dur = timeDiffMins(state.newEntry.startTime, state.newEntry.endTime);
   if(state.newEntry.startTime && state.newEntry.endTime && dur > 0) {
-    form.appendChild(h("div",{style:{fontSize:"13px",color:"rgba(255,255,255,0.4)",padding:"6px 0"}},
+    const isSplit = crossesMidnight(state.newEntry.startTime, state.newEntry.endTime);
+    const previewChildren = [
       "Duration: ",
-      h("span",{className:"mono",style:{color:"rgba(255,255,255,0.6)"}},fmtDur(dur))
-    ));
+      h("span",{className:"mono",style:{color:"rgba(255,255,255,0.6)"}},fmtDur(dur)),
+    ];
+    if(isSplit) {
+      previewChildren.push(h("span",{style:{color:"rgba(245,166,35,0.7)",marginLeft:"8px",fontSize:"12px"}},"⚡ Will split across midnight into two entries"));
+    }
+    form.appendChild(h("div",{style:{fontSize:"13px",color:"rgba(255,255,255,0.4)",padding:"6px 0"}},...previewChildren));
   }
 
   // Note
@@ -708,15 +764,8 @@ function renderAddEntryModal() {
   btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"linear-gradient(135deg,#E8453C,#D63B33)",color:"#fff",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{
     const dur = timeDiffMins(state.newEntry.startTime, state.newEntry.endTime);
     if(!state.newEntry.projectId || !state.newEntry.startTime || !state.newEntry.endTime || dur<=0) return;
-    state.entries.push({
-      id:"e-"+Date.now(),
-      projectId:state.newEntry.projectId,
-      date:state.newEntry.date,
-      duration:dur,
-      startTime:state.newEntry.startTime,
-      endTime:state.newEntry.endTime,
-      note:state.newEntry.note
-    });
+    const newEntries = createTimeEntries(state.newEntry.projectId, state.newEntry.date, state.newEntry.startTime, state.newEntry.endTime, state.newEntry.note);
+    state.entries.push(...newEntries);
     state.newEntry={projectId:"",date:dateStr(new Date()),startTime:"",endTime:"",note:""};
     state.showAddEntry=false;
     saveData();render();
@@ -750,10 +799,15 @@ function renderEditEntryModal() {
   // Duration preview
   const dur = timeDiffMins(state.editEntry.startTime, state.editEntry.endTime);
   if(state.editEntry.startTime && state.editEntry.endTime && dur > 0) {
-    form.appendChild(h("div",{style:{fontSize:"13px",color:"rgba(255,255,255,0.4)",padding:"6px 0"}},
+    const isSplit = crossesMidnight(state.editEntry.startTime, state.editEntry.endTime);
+    const previewChildren = [
       "Duration: ",
-      h("span",{className:"mono",style:{color:"rgba(255,255,255,0.6)"}},fmtDur(dur))
-    ));
+      h("span",{className:"mono",style:{color:"rgba(255,255,255,0.6)"}},fmtDur(dur)),
+    ];
+    if(isSplit) {
+      previewChildren.push(h("span",{style:{color:"rgba(245,166,35,0.7)",marginLeft:"8px",fontSize:"12px"}},"⚡ Will split across midnight into two entries"));
+    }
+    form.appendChild(h("div",{style:{fontSize:"13px",color:"rgba(255,255,255,0.4)",padding:"6px 0"}},...previewChildren));
   }
 
   // Note
@@ -763,22 +817,19 @@ function renderEditEntryModal() {
   const btns = h("div",{style:{display:"flex",gap:"10px",marginTop:"8px"}});
   btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"rgba(255,255,255,0.06)",color:"#E8E6E3",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{state.showEditEntry=false;render();}},"Cancel"));
   btns.appendChild(h("button",{className:"tk-btn",style:{flex:"1",background:"linear-gradient(135deg,#E8453C,#D63B33)",color:"#fff",padding:"12px",justifyContent:"center",fontSize:"14px"},onClick:()=>{
-    const dur = timeDiffMins(state.editEntry.startTime, state.editEntry.endTime);
     if(!state.editEntry.projectId) return;
-    const idx = state.entries.findIndex(e=>e.id===state.editEntry.id);
-    if(idx>=0) {
-      state.entries[idx].projectId = state.editEntry.projectId;
-      state.entries[idx].date = state.editEntry.date;
-      state.entries[idx].note = state.editEntry.note;
-      if(state.editEntry.startTime && state.editEntry.endTime && dur > 0) {
-        state.entries[idx].startTime = state.editEntry.startTime;
-        state.entries[idx].endTime = state.editEntry.endTime;
-        state.entries[idx].duration = dur;
-      } else if(state.editEntry.startTime || state.editEntry.endTime) {
-        // Only one time filled — keep existing duration, update what's provided
-        if(state.editEntry.startTime) state.entries[idx].startTime = state.editEntry.startTime;
-        if(state.editEntry.endTime) state.entries[idx].endTime = state.editEntry.endTime;
-      } else {
+    if(state.editEntry.startTime && state.editEntry.endTime) {
+      // Remove old entry, replace with potentially split new entries
+      state.entries = state.entries.filter(e=>e.id!==state.editEntry.id);
+      const newEntries = createTimeEntries(state.editEntry.projectId, state.editEntry.date, state.editEntry.startTime, state.editEntry.endTime, state.editEntry.note);
+      state.entries.push(...newEntries);
+    } else {
+      // No times — just update project/date/note, keep existing duration
+      const idx = state.entries.findIndex(e=>e.id===state.editEntry.id);
+      if(idx>=0) {
+        state.entries[idx].projectId = state.editEntry.projectId;
+        state.entries[idx].date = state.editEntry.date;
+        state.entries[idx].note = state.editEntry.note;
         delete state.entries[idx].startTime;
         delete state.entries[idx].endTime;
       }
@@ -1005,20 +1056,14 @@ function startTimerTick() {
 function stopTimer() {
   if (state.timerStartedAt && state.timerProject) {
     const endTime = Date.now();
-    const elapsedSecs = Math.round((endTime - state.timerStartedAt) / 1000);
-    const elapsedMins = Math.max(1, Math.round(elapsedSecs / 60));
     const startDate = new Date(state.timerStartedAt);
     const endDate = new Date(endTime);
     const pad = n => String(n).padStart(2,"0");
-    state.entries.push({
-      id: "e-"+Date.now(),
-      projectId: state.timerProject,
-      date: dateStr(new Date()),
-      duration: elapsedMins,
-      startTime: pad(startDate.getHours())+":"+pad(startDate.getMinutes()),
-      endTime: pad(endDate.getHours())+":"+pad(endDate.getMinutes()),
-      note: "Timer entry"
-    });
+    const startTimeStr = pad(startDate.getHours())+":"+pad(startDate.getMinutes());
+    const endTimeStr = pad(endDate.getHours())+":"+pad(endDate.getMinutes());
+    const startDateStr = dateStr(startDate);
+    const newEntries = createTimeEntries(state.timerProject, startDateStr, startTimeStr, endTimeStr, "Timer entry");
+    state.entries.push(...newEntries);
   }
   clearInterval(state.timerInterval);
   state.timerRunning = false;
