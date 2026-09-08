@@ -7,11 +7,12 @@ redirect_from:
   - /about.html
 ---
 
-I am a thrid-year PhD student in computer science at **New York University**. I am fortunate to be advised by Prof. [Eunsol Choi](https://eunsol.github.io/). I completed my Master's in Computer Science at UT Austin, and I received B.S. in Electrical Engineering at National Taiwan University. 
+I am a fourth-year PhD student in computer science at **New York University**. I am fortunate to be advised by Prof. [Eunsol Choi](https://eunsol.github.io/). I completed my Master's in Computer Science at UT Austin, and I received B.S. in Electrical Engineering at National Taiwan University. 
 
 My research interest broadly lies in natural language processing and machine learning. More specifically, I am interested in building systems that can understand language and respond to human queries accurately.
 
 ## Recent News
+- **May 2026**: Beginning my summer internship at Microsoft at Frontier Tuning team. 
 - **Jan 2025**: Our paper on [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110) was accepted to NAACL 2025!
 
 ## Research Interests
@@ -24,8 +25,9 @@ I am interested in finding out what is the most **accurate**, **efficient**, and
 ## Service
 
 ### Reviewer / Program Committee
+- ICML 2026
 - ICLR 2026
-- ARR (Feb 2024, Aug 2024, Oct 2024, Feb 2025, July 2025)
+- ARR (Feb 2024, Aug 2024, Oct 2024, Feb 2025, July 2025, Jan 2026)
 - EMNLP (2022, 2023)
 - ACL 2023
 - AKBC 2022
