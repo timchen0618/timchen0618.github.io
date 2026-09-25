@@ -12,8 +12,9 @@ I am a fourth-year PhD student in computer science at **New York University**. I
 My research interest broadly lies in natural language processing and machine learning. More specifically, I am interested in building systems that can understand language and respond to human queries accurately.
 
 ## Recent News
+- **Sept 2026**: Our paper [RVR: Retrieve-Verify-Retrieve for Comprehensive Question Answering](https://arxiv.org/abs/2602.18425) was accepted to NeurIPS 2026!
 - **May 2026**: Beginning my summer internship at Microsoft at Frontier Tuning team. 
-- **Jan 2025**: Our paper on [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110) was accepted to NAACL 2025!
+- **Jan 2025**: Our paper [Open-World Evaluation for Retrieving Diverse Perspectives](https://arxiv.org/abs/2409.18110) was accepted to NAACL 2025!
 
 ## Research Interests
 I am interested in finding out what is the most **accurate**, **efficient**, and **reliable** way to gather information and provide answers for user queries. 
